@@ -32,34 +32,34 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Cronn.Core">
-      <HintPath>..\..\Cronn.Core.dll</HintPath>
+      <HintPath>..\..\..\Users\joao.goncalves\Documents\Monitor\Cronn.Core.dll</HintPath>
     </Reference>
     <Reference Include="Cronn.Core.Tendencia">
-      <HintPath>..\..\Cronn.Core.Tendencia.dll</HintPath>
+      <HintPath>..\..\..\Users\joao.goncalves\Documents\Monitor\Cronn.Core.Tendencia.dll</HintPath>
     </Reference>
     <Reference Include="Dapper">
-      <HintPath>..\..\Dapper.dll</HintPath>
+      <HintPath>..\..\..\Users\joao.goncalves\Documents\Monitor\Dapper.dll</HintPath>
     </Reference>
     <Reference Include="Iesi.Collections">
-      <HintPath>..\..\Iesi.Collections.dll</HintPath>
+      <HintPath>..\..\..\Users\joao.goncalves\Documents\Monitor\Iesi.Collections.dll</HintPath>
     </Reference>
     <Reference Include="LiteDB, Version=4.1.1.0, Culture=neutral, PublicKeyToken=4ee40123013c9f27, processorArchitecture=MSIL">
       <HintPath>..\packages\LiteDB.4.1.1\lib\net40\LiteDB.dll</HintPath>
     </Reference>
     <Reference Include="log4net">
-      <HintPath>..\..\log4net.dll</HintPath>
+      <HintPath>..\..\..\Users\joao.goncalves\Documents\Monitor\log4net.dll</HintPath>
     </Reference>
     <Reference Include="NHibernate">
-      <HintPath>..\..\NHibernate.dll</HintPath>
+      <HintPath>..\..\..\Users\joao.goncalves\Documents\Monitor\NHibernate.dll</HintPath>
     </Reference>
     <Reference Include="NHibernate.Envers">
-      <HintPath>..\..\NHibernate.Envers.dll</HintPath>
+      <HintPath>..\..\..\Users\joao.goncalves\Documents\Monitor\NHibernate.Envers.dll</HintPath>
     </Reference>
     <Reference Include="NHibernate.Validator">
-      <HintPath>..\..\NHibernate.Validator.dll</HintPath>
+      <HintPath>..\..\..\Users\joao.goncalves\Documents\Monitor\NHibernate.Validator.dll</HintPath>
     </Reference>
     <Reference Include="PostSharp">
-      <HintPath>..\..\PostSharp.dll</HintPath>
+      <HintPath>..\..\..\Users\joao.goncalves\Documents\Monitor\PostSharp.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -88,6 +88,17 @@
   <ItemGroup>
     <None Include="app.config" />
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <COMReference Include="CobreBemX">
+      <Guid>{97B92612-EA6B-4E12-B759-91B91554DE0D}</Guid>
+      <VersionMajor>1</VersionMajor>
+      <VersionMinor>0</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>tlbimp</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -11,6 +11,13 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MonitorBoletos.Model", "Mon
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Core", "Core", "{1910FAAB-8D39-4947-8C14-571DC1B2D80F}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "lic", "lic", "{730DC7D8-EBC5-4E4F-B419-F79B5427BB38}"
+	ProjectSection(SolutionItems) = preProject
+		lic\09427183000109-237-04.conf = lic\09427183000109-237-04.conf
+		lic\09446526000174-237-04.conf = lic\09446526000174-237-04.conf
+		lic\13263506000135-237-04.conf = lic\13263506000135-237-04.conf
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
