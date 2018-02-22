@@ -11,40 +11,22 @@ namespace MonitorBoletos.Business
 {
     public class BancoBusiness
     {
-        private BancoDAO dao = new BancoDAO();
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="_id"></param>
-        /// <returns></returns>
-        public Banco ObterPorId(ObjectId _id)
+        public Banco validaBanco(Banco bank)
         {
-            var bancos = dao.Get();
+            var banco = new Banco();
 
-            return bancos.FindById(_id);
-        }
+            if (banco.Numero is null)
+            {
+                var inserirBanco = new BancoDAO();
+                inserirBanco.InserirBanco(banco);
+            }
+            else
+            {
+                var atualizarBanco = new BancoDAO();
+                atualizarBanco.atualizarBanco(banco);
+            }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="_nome"></param>
-        /// <returns></returns>
-        public Banco ObterPorNome(string _nome)
-        {
-            return dao.Get()
-                      .Find(x => x.Nome.Equals(_nome))
-                      .FirstOrDefault();
-        }
-
-        public Banco GetByNumero()
-        {
-            return null;
-        }
-
-        public void Salvar(Banco b)
-        {
-            dao.Get().Insert(b);
+            return banco;
         }
     }
 }

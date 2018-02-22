@@ -1,22 +1,53 @@
 ﻿using LiteDB;
 using MonitorBoletos.Model;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Configuration;
 
 namespace MonitorBoletos.DAO
 {
-    public class BancoDAO : GenericDAO<Banco>
+    public class BancoDAO
     {
-        #region Contrutor
-        /// <summary>
-        /// Connstruindo e setando o nome da tabela
-        /// </summary>
-        public BancoDAO() : base("bancos") { }
+        private string Connection = ConfigurationManager.ConnectionStrings["Monitor"].ConnectionString;
 
-        #endregion
+        public void InserirBanco(Banco bank)
+        {
+            using (var db = new LiteDatabase(Connection))
+            {
+                var banco = db.GetCollection<Banco>("banco");
 
+                banco.Insert(bank);
+            }
+        }
+
+        public Banco getByNumero(Banco numero)
+        {
+            using (var db = new LiteDatabase(Connection))
+            {
+                var banco = db.GetCollection<Banco>("banco");
+
+                var result = banco.FindById(numero.Numero);
+
+                return result;
+            }
+        }
+
+        public void atualizarBanco(Banco bank)
+        {
+            using (var db = new LiteDatabase(Connection))
+            {
+                var banco = db.GetCollection<Banco>("banco");
+
+                banco.Update(bank);
+            }
+        }
+
+        public void deletarBanco(string bank)
+        {
+            using (var db = new LiteDatabase(Connection))
+            {
+                var banco = db.GetCollection<Banco>("banco");
+
+                banco.Delete(bank);
+            }
+        }
     }
 }

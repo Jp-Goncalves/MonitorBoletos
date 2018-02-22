@@ -73,6 +73,8 @@
   <ItemGroup>
     <Compile Include="ArquivoBusiness.cs" />
     <Compile Include="BancoBusiness.cs" />
+    <Compile Include="CarteiraBusiness.cs" />
+    <Compile Include="EmpresaBusiness.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

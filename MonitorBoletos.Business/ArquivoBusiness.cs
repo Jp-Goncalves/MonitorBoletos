@@ -1,12 +1,8 @@
-﻿using LiteDB;
-using MonitorBoletos.DAO;
+﻿using MonitorBoletos.DAO;
 using MonitorBoletos.Model;
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Text.RegularExpressions;
 
 namespace MonitorBoletos.Business
@@ -50,13 +46,50 @@ namespace MonitorBoletos.Business
             //TODO : Validar a Empresa, carteira e banco do arquivo
 
             //Regex para ler o Header do arquivo
-            var leitorRegularExpression = Regex.Split(file,
-                @",(^\d{1}\d{1}[A-Z]{7}\d{2}[\s A-Z\s]{15}\d{20}[\s A-Z\s]{30}\d{3}[\s A-Z \s]{15}\d{6}\d{8}\d{5}.{266}\d{6}.{9}\d{6})", RegexOptions.Compiled);
-
+            var leitorTituloCobranca = Regex.Split(file,
+                @"(^\d{1}\d{1}[A-Z]{7}\d{2}[\s A-Z\s]{15}\d{20}[\s A-Z\s]{30}\d{3}[\s A-Z \s]{15}\d{6}\d{8}\d{5}.{266}\d{6}.{9}\d{6})", RegexOptions.Compiled);
+            
+            //valida o banco que está no arquivo
             var banco = new Banco();
 
-            banco.Numero = leitorRegularExpression[7].ToString();
-            banco.Nome = leitorRegularExpression[8].ToString().ToUpper();
+            banco.Numero = leitorTituloCobranca[7].ToString();
+            banco.Nome = leitorTituloCobranca[8].ToString().ToUpper();
+
+            var bank = new BancoBusiness();
+            bank.validaBanco(banco);
+
+
+            //Regex para ler as  cobranças do arquivo
+            var leitorCobranca = Regex.Split(file,
+                @"(^.{1}.{2}.{14}.{3}.{17}.{25}.{8}.{12}.{10}.{12}.{1}.{2}.{1}.{2}.{6}.{10}.{20}.{6}.{13}.{3}.{5}.{2}.{13}
+                .{13}.{13}.{13}.{13}.{13}.{13}.{13}.{13}.{2}.{1}.{6}.{3}.{10}.{4}.{10}.{40}.{2}.{10}.{14}.{6}$)", RegexOptions.Compiled);
+
+            //Regex para ler a Carteira, Agencia e Conta Corrente
+            var info = leitorCobranca[4].ToString();
+            var dados = Regex.Split(info, @"^.{1}.{2}.{5}.{8}$", RegexOptions.Compiled);
+
+
+            //valida a carteira
+            var carteira = new Carteira();
+            carteira.Numero = Convert.ToInt64(dados[0]);
+
+            var card = new CarteiraBusiness();
+            card.validarCarteira(carteira);
+
+
+            //valida a empresa que está no arquivo
+            var empresa = new Empresa();
+            empresa.Cnpj = leitorCobranca[2].ToString();
+            empresa.Nome = leitorTituloCobranca[6].ToString();
+
+            var company = new EmpresaBusiness();
+            company.validaEmpresa(empresa);
+
+            //valida a Conta Corrente
+            var contacorrente = new ContaCorrente();
+            contacorrente.Numero = dados[3].ToString();
+            contacorrente.Banco = banco;
+            contacorrente.Empresa = empresa;
         }
 
         public Cronn.Core.Tendencia.Model.Cobranca obterBoletoCronn(OcorrenciaCobranca ocorrencia)
