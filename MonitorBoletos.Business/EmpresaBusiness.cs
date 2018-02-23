@@ -13,6 +13,7 @@ namespace MonitorBoletos.Business
         public Empresa validaEmpresa(Empresa company)
         {
             var empresa = new Empresa();
+            empresa = company;
 
             if (empresa.Cnpj is null)
             {

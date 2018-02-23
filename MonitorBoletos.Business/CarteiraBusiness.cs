@@ -13,6 +13,7 @@ namespace MonitorBoletos.Business
         public Carteira validarCarteira(Carteira carteira)
         {
             var card = new Carteira();
+            card = carteira;
 
             if (carteira.Numero == 0)
             {

@@ -14,6 +14,7 @@ namespace MonitorBoletos.Business
         public Banco validaBanco(Banco bank)
         {
             var banco = new Banco();
+            banco = bank;
 
             if (banco.Numero is null)
             {

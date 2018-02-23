@@ -90,6 +90,16 @@ namespace MonitorBoletos.Business
             contacorrente.Numero = dados[3].ToString();
             contacorrente.Banco = banco;
             contacorrente.Empresa = empresa;
+
+            var conta = new ContaCorrenteBusiness();
+            conta.validarContaCorrente(contacorrente);
+
+
+            //Valida o arquivo de licença
+            var licenca = new Licenca();
+            licenca.Banco = banco;
+            licenca.Carteira = carteira;
+
         }
 
         public Cronn.Core.Tendencia.Model.Cobranca obterBoletoCronn(OcorrenciaCobranca ocorrencia)
