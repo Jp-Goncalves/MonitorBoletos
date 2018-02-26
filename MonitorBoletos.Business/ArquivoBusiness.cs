@@ -12,8 +12,6 @@ namespace MonitorBoletos.Business
     /// </summary>
     public class ArquivoBusiness
     {
-        private ArquivoDAO _dao = new ArquivoDAO();
-
         public ArquivoBusiness()
         {
 
@@ -40,6 +38,34 @@ namespace MonitorBoletos.Business
                 return true;
             }
         }
+
+        public Banco converter(string arquivo)
+        {
+            //Regex para ler o Header do arquivo
+            var array = Regex.Split(arquivo,
+                @"(^\d{1}\d{1}[A-Z]{7}\d{2}[\s A-Z\s]{15}\d{20}[\s A-Z\s]{30}\d{3}[\s A-Z \s]{15}\d{6}\d{8}\d{5}.{266}\d{6}.{9}\d{6})", RegexOptions.Compiled);
+
+            var banco = new Banco();
+
+            banco.Nome = array[8].ToString();
+
+            return banco;
+        }
+
+        public List<Banco> validarTitulo(string arquivo)
+        {
+            if (File.Exists(arquivo))
+            {
+                var lista = new List<Banco>();
+                using (var leitor = new StreamReader(arquivo))
+                {
+                    leitor.ReadLine();
+                }
+                return lista;
+            }
+        }
+
+
 
         public void validarArquivoRetorno(string file)
         {

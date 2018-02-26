@@ -10,16 +10,19 @@ namespace MonitorBoletos.Business
 {
     public class ContaCorrenteBusiness
     {
+
+        /// <summary>
+        /// Validar a Conta Corrente
+        /// </summary>
+        /// <param name="conta">para verificar se ela existe</param>
+        /// <returns>retorna uma conta</returns>
         public ContaCorrente validarContaCorrente(ContaCorrente conta)
         {
+            var account = new ContaCorrenteDAO();
 
-            if (conta.Numero is null)
-            {
-                var inserirContaCorrente = new ContaCorrenteDAO();
-                inserirContaCorrente.InserirContaCorrente(conta);
-            }
+            var contacorrente = account.getByNumero(conta);
 
-            return conta;
+            return contacorrente;
         }
     }
 }
