@@ -11,48 +11,51 @@ namespace MonitorBoletos.DAO
 {
     public  class LicencaDAO
     {
-        private string Connection = ConfigurationManager.ConnectionStrings["Monitor"].ConnectionString;
+        #region Fields
+        /// <summary>
+        /// Obter a string de conexão que vai ser utilizada
+        /// </summary>
+        private string Connection = ConexaoDAO.GetConnectionString();
 
-        public void InserirLicenca(Licenca file)
+        /// <summary>
+        /// Nome da tabela no db para ser utilizada no LiteDB
+        /// </summary>
+        private readonly string _tableName = "licenca";
+        #endregion
+
+        #region Public Methods
+
+        public void Inserir(Licenca file)
         {
             using (var db = new LiteDatabase(Connection))
             {
-                var licenca = db.GetCollection<Licenca>("licenca");
+                var licenca = db.GetCollection<Licenca>(_tableName);
 
                 licenca.Insert(file);
             }
         }
 
-        public Licenca getByNumero(Banco numero)
+        public void Atualizar(Licenca file)
         {
             using (var db = new LiteDatabase(Connection))
             {
-                var licenca = db.GetCollection<Licenca>("licenca");
-
-                var result = licenca.FindById(numero.Numero);
-
-                return result;
-            }
-        }
-
-        public void atualizarLicenca(Licenca file)
-        {
-            using (var db = new LiteDatabase(Connection))
-            {
-                var licenca = db.GetCollection<Licenca>("licenca");
+                var licenca = db.GetCollection<Licenca>(_tableName);
 
                 licenca.Update(file);
             }
         }
 
-        public void deletarLicenca(string file)
+        public void Deletar(string file)
         {
             using (var db = new LiteDatabase(Connection))
             {
-                var licenca = db.GetCollection<Licenca>("licenca");
+                var licenca = db.GetCollection<Licenca>(_tableName);
 
                 licenca.Delete(file);
             }
         }
+
+
+        #endregion
     }
 }
