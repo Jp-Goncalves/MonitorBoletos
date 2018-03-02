@@ -1,4 +1,5 @@
 ﻿using MonitorBoletos.Business;
+using MonitorBoletos.Model;
 using System;
 using System.IO;
 using System.Windows.Forms;
@@ -28,14 +29,15 @@ namespace MonitorBoletos.DesktopView
             }
 
             var validarArquivo = new ArquivoBusiness();
+            var banco = new Banco();
 
             if (validarArquivo.validarArquivo(arquivo) == true)
             {
-                MessageBox.Show(arquivo);
+                banco = validarArquivo.validarArquivoLicenca(arquivo);
+                MessageBox.Show("O banco é: "+ banco.Nome + " " + "e o Nº: " + banco.Numero);
             }
 
-            validarArquivo.validarTitulo(arquivo);
-            MessageBox.Show(validarArquivo.ToString());
+            validarArquivo.validarArquivoLicenca(arquivo);
         }
     }
 }
