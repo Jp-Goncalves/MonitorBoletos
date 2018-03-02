@@ -6,7 +6,8 @@ using System.Threading.Tasks;
 
 namespace MonitorBoletos.DAO
 {
-    internal class OcorrenciaCobrancaDAO
+    public  class OcorrenciaCobrancaDAO
     {
+
     }
 }

@@ -50,7 +50,6 @@
     <Compile Include="ConexaoDAO.cs" />
     <Compile Include="ContaCorrenteDAO.cs" />
     <Compile Include="EmpresaDAO.cs" />
-    <Compile Include="GenericDAO.cs" />
     <Compile Include="LicencaDAO.cs" />
     <Compile Include="OcorrenciaCobrancaDAO.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

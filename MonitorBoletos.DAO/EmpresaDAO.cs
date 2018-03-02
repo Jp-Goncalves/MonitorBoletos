@@ -9,25 +9,48 @@ using System.Threading.Tasks;
 
 namespace MonitorBoletos.DAO
 {
+    /// <summary>
+    /// Centralizar o acesso a dados do modelo <see cref="Empresa"/>
+    /// </summary>
     public class EmpresaDAO
     {
-        private string Connection = ConfigurationManager.ConnectionStrings["Monitor"].ConnectionString;
+        #region Fields
+        /// <summary>
+        /// Obter a string de conexão que vai ser utilizada
+        /// </summary>
+        private string Connection = ConexaoDAO.GetConnectionString();
 
+        /// <summary>
+        /// Nome da tabela no db para ser utilizada no LiteDB
+        /// </summary>
+        private readonly string _tableName = "empresa";
+        #endregion
+
+        #region Public Methods
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="empresa"></param>
         public void InserirEmpresa(Empresa empresa)
         {
             using (var db = new LiteDatabase(Connection))
             {
-                var company = db.GetCollection<Empresa>("empresa");
+                var company = db.GetCollection<Empresa>(_tableName);
 
                 company.Insert(empresa);
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="empresa"></param>
+        /// <returns></returns>
         public Empresa getByCNPJ(Empresa empresa)
         {
             using (var db = new LiteDatabase(Connection))
             {
-                var company = db.GetCollection<Empresa>("empresa");
+                var company = db.GetCollection<Empresa>(_tableName);
 
                 var result = company.FindById(empresa.Cnpj);
 
@@ -39,7 +62,7 @@ namespace MonitorBoletos.DAO
         {
             using (var db = new LiteDatabase(Connection))
             {
-                var company = db.GetCollection<Empresa>("empresa");
+                var company = db.GetCollection<Empresa>(_tableName);
 
                 company.Update(empresa);
             }
@@ -49,10 +72,11 @@ namespace MonitorBoletos.DAO
         {
             using (var db = new LiteDatabase(Connection))
             {
-                var company = db.GetCollection<Empresa>("empresa");
+                var company = db.GetCollection<Empresa>(_tableName);
 
                 company.Delete(empresa);
             }
         }
+        #endregion
     }
 }
