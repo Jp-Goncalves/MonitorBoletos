@@ -14,5 +14,7 @@ namespace MonitorBoletos.Model
         public String Cnpj { get; set; }  
 
         public string Nome { get; set; }
+
+        public IList<ContaCorrente> ContasCorrente { get; set; }
     }
 }

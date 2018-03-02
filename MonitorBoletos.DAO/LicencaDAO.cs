@@ -55,6 +55,16 @@ namespace MonitorBoletos.DAO
             }
         }
 
+        public Licenca ObterPeloId(ObjectId id)
+        {
+            using (var db = new LiteDatabase(Connection))
+            {
+                var licenca = db.GetCollection<Licenca>(_tableName);
+
+                return licenca.FindById(id);
+            }
+        }
+
 
         #endregion
     }
