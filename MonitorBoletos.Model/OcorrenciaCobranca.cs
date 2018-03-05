@@ -8,6 +8,9 @@ using LiteDB;
 
 namespace MonitorBoletos.Model
 {
+    /// <summary>
+    /// Ocorrencia
+    /// </summary>
     public class OcorrenciaCobranca : IOcorrenciaCobranca
     {
         public ObjectId Id { get; set; }

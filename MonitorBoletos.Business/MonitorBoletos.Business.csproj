@@ -36,10 +36,10 @@
       <HintPath>..\packages\Antlr3.Runtime.3.5.1\lib\net40-client\Antlr3.Runtime.dll</HintPath>
     </Reference>
     <Reference Include="Cronn.Core">
-      <HintPath>..\..\..\Users\joao.goncalves\Documents\Monitor\Cronn.Core.dll</HintPath>
+      <HintPath>..\..\..\Cron\ProjectCron\Cronn.Core.Tendencia\bin\Release\Cronn.Core.dll</HintPath>
     </Reference>
     <Reference Include="Cronn.Core.Tendencia">
-      <HintPath>..\..\..\Users\joao.goncalves\Documents\Monitor\Cronn.Core.Tendencia.dll</HintPath>
+      <HintPath>..\..\..\Cron\ProjectCron\Cronn.Core.Tendencia\bin\Release\Cronn.Core.Tendencia.dll</HintPath>
     </Reference>
     <Reference Include="Iesi.Collections, Version=4.0.0.4000, Culture=neutral, PublicKeyToken=aa95f207798dfdb4, processorArchitecture=MSIL">
       <HintPath>..\packages\Iesi.Collections.4.0.2\lib\net461\Iesi.Collections.dll</HintPath>
