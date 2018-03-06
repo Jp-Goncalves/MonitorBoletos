@@ -40,5 +40,10 @@ namespace MonitorBoletos.DesktopView
                 bussArquivo.validarArquivoLicenca(arquivo);
             }
         }
+
+        private void groupBox1_Enter(object sender, EventArgs e)
+        {
+
+        }
     }
 }

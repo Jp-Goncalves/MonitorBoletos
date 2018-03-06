@@ -22,7 +22,6 @@ namespace MonitorBoletos.Business
         public bool validarArquivo(string filename)
         {
             //TODO : Criar rotina para validar arquivo
-
             var result = filename;
             var extensao = Path.GetExtension(result).ToUpper();
             var ext = ".RET";
@@ -43,69 +42,69 @@ namespace MonitorBoletos.Business
 
         public Banco validarArquivoLicenca(string arquivo)
         {
-            const string drj = "DRJ DISTRIBUIDORA";
-            const string log = "LOG EXPRESS";
-            const string rdc = "RDC DISTRIBUIDORA";
+            //const string drj = "DRJ DISTRIBUIDORA";
+            //const string log = "LOG EXPRESS";
+            //const string rdc = "RDC DISTRIBUIDORA";
 
             var banco = new Banco();
-            var empresa = new Empresa();
-            var carteira = new Carteira();
-            var contaCorrente = new ContaCorrente();
-            var licenca = new Licenca();
+            //var empresa = new Empresa();
+            //var carteira = new Carteira();
+            //var contaCorrente = new ContaCorrente();
+            //var licenca = new Licenca();
 
-            var cobreBem = new CobreBemX.ContaCorrente();
+            ////var cobreBem = new CobreBemX.ContaCorrente();
 
 
-            using (var leitor = new StreamReader(arquivo))
-            {
-                var resultado = leitor.ReadLine();
+            //using (var leitor = new StreamReader(arquivo))
+            //{
+            //    var resultado = leitor.ReadLine();
 
-                if (resultado.Contains(drj))
-                {
-                    cobreBem.ArquivoLicenca = @"C:\Temp\Monitor\lic\13263506000135-237-04.conf";
-                }
-                else if (resultado.Contains(log))
-                {
-                    cobreBem.ArquivoLicenca = @"C:\Temp\Monitor\lic\09427183000109-237-04.conf";
-                }
-                else if (resultado.Contains(rdc))
-                {
-                    cobreBem.ArquivoLicenca = @"C:\Temp\Monitor\lic\09446526000174-237-04.conf";
-                }
+            //    if (resultado.Contains(drj))
+            //    {
+            //        cobreBem.ArquivoLicenca = @"C:\Temp\Monitor\lic\13263506000135-237-04.conf";
+            //    }
+            //    else if (resultado.Contains(log))
+            //    {
+            //        cobreBem.ArquivoLicenca = @"C:\Temp\Monitor\lic\09427183000109-237-04.conf";
+            //    }
+            //    else if (resultado.Contains(rdc))
+            //    {
+            //        cobreBem.ArquivoLicenca = @"C:\Temp\Monitor\lic\09446526000174-237-04.conf";
+            //    }
 
-                cobreBem.ArquivoRetorno.Diretorio = Path.GetDirectoryName(arquivo);
+            //    cobreBem.ArquivoRetorno.Diretorio = Path.GetDirectoryName(arquivo);
 
-                banco.Nome = cobreBem.NomeBanco;
-                banco.Numero = cobreBem.NumeroBanco;
-                empresa.Nome = cobreBem.NomeCedente;
-                empresa.Cnpj = cobreBem.CnpjCpfCedente;
-                carteira.Numero = Convert.ToInt32(cobreBem.CodigoCarteira);
-                contaCorrente.Numero = cobreBem.NumeroContaCorrente;
-                contaCorrente.Banco = banco;
-                contaCorrente.Empresa = empresa;
-                licenca.Diretorio = cobreBem.ArquivoLicenca;
-                licenca.Nome = Path.GetFileName(arquivo);
-            }
+            //    banco.Nome = cobreBem.NomeBanco;
+            //    banco.Numero = cobreBem.NumeroBanco;
+            //    empresa.Nome = cobreBem.NomeCedente;
+            //    empresa.Cnpj = cobreBem.CnpjCpfCedente;
+            //    carteira.Numero = Convert.ToInt32(cobreBem.CodigoCarteira);
+            //    contaCorrente.Numero = cobreBem.NumeroContaCorrente;
+            //    contaCorrente.Banco = banco;
+            //    contaCorrente.Empresa = empresa;
+            //    licenca.Diretorio = cobreBem.ArquivoLicenca;
+            //    licenca.Nome = Path.GetFileName(arquivo);
+            //}
 
-            var bank = new BancoBusiness();
-            bank.validaBanco(banco);
+            //var bank = new BancoBusiness();
+            //bank.validaBanco(banco);
 
             return banco;
         }
 
-        public Cronn.Core.Tendencia.Model.Cobranca obterBoletoCronn(OcorrenciaCobranca ocorrencia)
-        {
-            //TODO : Implementar a consulta de boletos no cronn
+        //public Cronn.Core.Tendencia.Model.Cobranca obterBoletoCronn(OcorrenciaCobranca ocorrencia)
+        //{
+        //    //TODO : Implementar a consulta de boletos no cronn
 
-            return null;
-        }
+        //    return null;
+        //}
 
-        public IList<Cronn.Core.Tendencia.Model.Cobranca> obterBoletosCronn(IList<OcorrenciaCobranca> ocorrencias)
-        {
-            //TODO : implementar obter boletos
+        //public IList<Cronn.Core.Tendencia.Model.Cobranca> obterBoletosCronn(IList<OcorrenciaCobranca> ocorrencias)
+        //{
+        //    //TODO : implementar obter boletos
 
-            return null;
-        }
+        //    return null;
+        //}
 
         public void processarLinhas(string filename)
         {

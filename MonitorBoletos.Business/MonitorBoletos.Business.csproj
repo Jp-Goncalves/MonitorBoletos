@@ -38,12 +38,6 @@
     <Reference Include="Boleto.Net, Version=2.0.0.0, Culture=neutral, PublicKeyToken=53630c3583b7ed5c, processorArchitecture=MSIL">
       <HintPath>..\packages\Boleto.Net.2.1.0.620\lib\Boleto.Net.dll</HintPath>
     </Reference>
-    <Reference Include="Cronn.Core">
-      <HintPath>..\..\..\Cron\ProjectCron\Cronn.Core.Tendencia\bin\Release\Cronn.Core.dll</HintPath>
-    </Reference>
-    <Reference Include="Cronn.Core.Tendencia">
-      <HintPath>..\..\..\Cron\ProjectCron\Cronn.Core.Tendencia\bin\Release\Cronn.Core.Tendencia.dll</HintPath>
-    </Reference>
     <Reference Include="Iesi.Collections, Version=4.0.0.4000, Culture=neutral, PublicKeyToken=aa95f207798dfdb4, processorArchitecture=MSIL">
       <HintPath>..\packages\Iesi.Collections.4.0.2\lib\net461\Iesi.Collections.dll</HintPath>
     </Reference>
@@ -102,17 +96,6 @@
   <ItemGroup>
     <None Include="app.config" />
     <None Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <COMReference Include="CobreBemX">
-      <Guid>{97B92612-EA6B-4E12-B759-91B91554DE0D}</Guid>
-      <VersionMajor>1</VersionMajor>
-      <VersionMinor>0</VersionMinor>
-      <Lcid>0</Lcid>
-      <WrapperTool>tlbimp</WrapperTool>
-      <Isolated>False</Isolated>
-      <EmbedInteropTypes>True</EmbedInteropTypes>
-    </COMReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

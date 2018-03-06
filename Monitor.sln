@@ -11,13 +11,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MonitorBoletos.Model", "Mon
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Core", "Core", "{1910FAAB-8D39-4947-8C14-571DC1B2D80F}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "lic", "lic", "{730DC7D8-EBC5-4E4F-B419-F79B5427BB38}"
-	ProjectSection(SolutionItems) = preProject
-		lic\09427183000109-237-04.conf = lic\09427183000109-237-04.conf
-		lic\09446526000174-237-04.conf = lic\09446526000174-237-04.conf
-		lic\13263506000135-237-04.conf = lic\13263506000135-237-04.conf
-	EndProjectSection
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MonitorBoletos.DesktopView", "MonitorBoletos.DesktopView\MonitorBoletos.DesktopView.csproj", "{ED2405F1-8101-49CA-A488-69B61D3F7A89}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Client", "Client", "{2C2F184E-394E-4424-ABD7-F4B90E1BBC43}"
