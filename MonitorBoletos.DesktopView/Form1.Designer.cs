@@ -54,6 +54,7 @@
             this.btEnviar.TabIndex = 3;
             this.btEnviar.Text = "Ler Arquivo CNAB";
             this.btEnviar.UseVisualStyleBackColor = true;
+            this.btEnviar.Click += new System.EventHandler(this.btEnviar_Click);
             // 
             // txtMsg
             // 
