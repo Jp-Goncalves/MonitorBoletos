@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using CobreBemX;
 using LiteDB;
 
 namespace MonitorBoletos.Model
@@ -11,7 +10,7 @@ namespace MonitorBoletos.Model
     /// <summary>
     /// Ocorrencia
     /// </summary>
-    public class OcorrenciaCobranca : IOcorrenciaCobranca
+    public class OcorrenciaCobranca
     {
         public ObjectId Id { get; set; }
 
@@ -21,7 +20,7 @@ namespace MonitorBoletos.Model
 
         public string CodigoOcorrencia { get; set; }
 
-        public IMotivosOcorrencia MotivosOcorrencia { get; set; }
+        public IList<string> MotivosOcorrencia { get; set; }
 
         public string DataOcorrencia { get; set; }
 
@@ -57,7 +56,7 @@ namespace MonitorBoletos.Model
 
         public double ValorOutrosAcrescimos { get; set; }
 
-        public IDadosOcorrencia DadosOcorrencia { get; set; }
+        public string DadosOcorrencia { get; set; }
 
         public double ValorAbatimento { get; set; }
 
