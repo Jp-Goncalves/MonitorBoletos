@@ -50,6 +50,7 @@
     <Compile Include="Carteira.cs" />
     <Compile Include="ContaCorrente.cs" />
     <Compile Include="Empresa.cs" />
+    <Compile Include="Header.cs" />
     <Compile Include="Licenca.cs" />
     <Compile Include="OcorrenciaCobranca.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

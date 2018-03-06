@@ -16,17 +16,6 @@ namespace MonitorBoletos.Business
             var banco = new Banco();
             banco = bank;
 
-            if (banco.Numero is null)
-            {
-                var inserirBanco = new BancoDAO();
-                inserirBanco.InserirBanco(banco);
-            }
-            else
-            {
-                var atualizarBanco = new BancoDAO();
-                atualizarBanco.atualizarBanco(banco);
-            }
-
             return banco;
         }
     }
