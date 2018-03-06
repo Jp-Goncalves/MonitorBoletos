@@ -42,17 +42,14 @@ namespace MonitorBoletos.Business
 
         public Banco validarArquivoLicenca(string arquivo)
         {
-            //const string drj = "DRJ DISTRIBUIDORA";
-            //const string log = "LOG EXPRESS";
-            //const string rdc = "RDC DISTRIBUIDORA";
-
             var banco = new Banco();
             //var empresa = new Empresa();
             //var carteira = new Carteira();
             //var contaCorrente = new ContaCorrente();
             //var licenca = new Licenca();
 
-            ////var cobreBem = new CobreBemX.ContaCorrente();
+            var header = new HeaderBusiness();
+            var result = header.leitorHeader(arquivo);
 
 
             //using (var leitor = new StreamReader(arquivo))
