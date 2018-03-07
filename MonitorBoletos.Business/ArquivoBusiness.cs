@@ -119,7 +119,13 @@ namespace MonitorBoletos.Business
             }
         }
 
-
+        /// <summary>
+        /// Metodo para ler e processar o arquivo de retorno
+        /// </summary>
+        /// <param name="b"><see cref="Model.Banco"/> vinculado ao arquivo</param>
+        /// <param name="s">stream do arquivo a ser lido</param>
+        /// <param name="tipo">informa o tipo do cnab a ser lido</param>
+        /// <returns></returns>
         public bool lerArquivoRetorno(Model.Banco b, Stream s, TipoCnabEnum tipo)
         {
             try
@@ -149,9 +155,7 @@ namespace MonitorBoletos.Business
             catch (Exception ex)
             {
                 throw new Exception("Erro ao ler o arquivo de retorno.",ex.InnerException);
-            }
-
-            
+            }            
         }
 
         #region IDisposable Support
