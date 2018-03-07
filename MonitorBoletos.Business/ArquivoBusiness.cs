@@ -1,4 +1,5 @@
-﻿using LiteDB;
+﻿using BoletoNet;
+using LiteDB;
 using MonitorBoletos.DAO;
 using MonitorBoletos.Model;
 using System;
@@ -10,15 +11,18 @@ using System.Text.RegularExpressions;
 namespace MonitorBoletos.Business
 {
     /// <summary>
-    /// 
+    /// Concentra as regras de negócio de arquivos
     /// </summary>
-    public class ArquivoBusiness
+    public class ArquivoBusiness : IDisposable
     {
+        #region Construtor
         public ArquivoBusiness()
         {
 
         }
+        #endregion
 
+        #region Metodos Publicos
         public bool validarArquivo(string filename)
         {
             //TODO : Criar rotina para validar arquivo
@@ -40,9 +44,9 @@ namespace MonitorBoletos.Business
             }
         }
 
-        public Banco validarArquivoLicenca(string arquivo)
+        public Model.Banco validarArquivoLicenca(string arquivo)
         {
-            var banco = new Banco();
+            var banco = new Model.Banco();
             //var empresa = new Empresa();
             //var carteira = new Carteira();
             //var contaCorrente = new ContaCorrente();
@@ -89,25 +93,103 @@ namespace MonitorBoletos.Business
             return banco;
         }
 
-        //public Cronn.Core.Tendencia.Model.Cobranca obterBoletoCronn(OcorrenciaCobranca ocorrencia)
-        //{
-        //    //TODO : Implementar a consulta de boletos no cronn
-
-        //    return null;
-        //}
-
-        //public IList<Cronn.Core.Tendencia.Model.Cobranca> obterBoletosCronn(IList<OcorrenciaCobranca> ocorrencias)
-        //{
-        //    //TODO : implementar obter boletos
-
-        //    return null;
-        //}
-
         public void processarLinhas(string filename)
         {
 
         }
 
+        /// <summary>
+        /// Verifica o tipo de CNAB ao ler um Stream
+        /// </summary>
+        /// <param name="arquivo">stream a ser lido</param>
+        /// <returns>retorna um <see cref="TipoCnabEnum"/></returns>
+        public TipoCnabEnum verificaTipoCNAB(string arquivo)
+        {
+            using (StreamReader stream = new StreamReader(arquivo, System.Text.Encoding.UTF8))
+            {
+                // Lendo o arquivo
+                string linha = stream.ReadLine();
+
+                if (linha.Length > 240)
+                {
+                    return TipoCnabEnum.CNAB400;
+                }
+
+                return TipoCnabEnum.CNAB240;
+            }
+        }
+
+
+        public bool lerArquivoRetorno(Model.Banco b, Stream s, TipoCnabEnum tipo)
+        {
+            try
+            {
+                IArquivoRetorno cnab = null;
+                var banco = new BoletoNet.Banco(b.Numero);
+
+                switch (tipo)
+                {
+                    case TipoCnabEnum.CNAB400:
+                        cnab = new ArquivoRetornoCNAB400();
+                        //cnab.LinhaDeArquivoLida += new EventHandler<LinhaDeArquivoLidaArgs>(cnab400_LinhaDeArquivoLida);
+                        cnab.LerArquivoRetorno(banco, s);
+                        break;
+
+                    case TipoCnabEnum.CNAB240:
+                        cnab = new ArquivoRetornoCNAB240();
+                        cnab.LerArquivoRetorno(banco, s);
+                        break;
+
+                    default:
+                        break;
+                }
+
+                return false;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Erro ao ler o arquivo de retorno.",ex.InnerException);
+            }
+
+            
+        }
+
+        #region IDisposable Support
+        private bool disposedValue = false; // To detect redundant calls
+
+        protected virtual void Dispose(bool disposing)
+        {
+            if (!disposedValue)
+            {
+                if (disposing)
+                {
+                    // TODO: dispose managed state (managed objects).
+                }
+
+                // TODO: free unmanaged resources (unmanaged objects) and override a finalizer below.
+                // TODO: set large fields to null.
+
+                disposedValue = true;
+            }
+        }
+
+        // TODO: override a finalizer only if Dispose(bool disposing) above has code to free unmanaged resources.
+        // ~ArquivoBusiness() {
+        //   // Do not change this code. Put cleanup code in Dispose(bool disposing) above.
+        //   Dispose(false);
+        // }
+
+        // This code added to correctly implement the disposable pattern.
+        public void Dispose()
+        {
+            // Do not change this code. Put cleanup code in Dispose(bool disposing) above.
+            Dispose(true);
+            // TODO: uncomment the following line if the finalizer is overridden above.
+            // GC.SuppressFinalize(this);
+        }
+        #endregion
+
+        #endregion
     }
 
 }

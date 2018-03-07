@@ -14,5 +14,7 @@ namespace MonitorBoletos.Model
         public string Nome { get; set; }
 
         public int Numero { get; set; }
+
+        public string Descricao => $"{Numero} - {Nome}";
     }
 }

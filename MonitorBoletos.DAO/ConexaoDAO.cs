@@ -18,15 +18,12 @@ namespace MonitorBoletos.DAO
         /// <summary>
         /// Retorna a string de conexão, busca a string noa rquivo de configuração
         /// </summary>
-        /// <example>
-        /// 
-        /// </example>
-        /// 
         /// <returns>connection string</returns>
         public static string GetConnectionString()
         {
             //busca a string de conexão no arquivo de configuração
-            return ConfigurationManager.ConnectionStrings["Monitor"].ConnectionString;
+            //return ConfigurationManager.ConnectionStrings["Monitor"].ConnectionString;
+            return @"nosql.db";
         }
 
         /// <summary>

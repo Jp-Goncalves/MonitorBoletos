@@ -15,6 +15,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MonitorBoletos.DesktopView"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Client", "Client", "{2C2F184E-394E-4424-ABD7-F4B90E1BBC43}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MonitorBoletos.Util", "MonitorBoletos.Util\MonitorBoletos.Util.csproj", "{8ADBD64A-3936-4A29-83D2-DC2A458A7234}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -37,6 +39,10 @@ Global
 		{ED2405F1-8101-49CA-A488-69B61D3F7A89}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{ED2405F1-8101-49CA-A488-69B61D3F7A89}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{ED2405F1-8101-49CA-A488-69B61D3F7A89}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8ADBD64A-3936-4A29-83D2-DC2A458A7234}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8ADBD64A-3936-4A29-83D2-DC2A458A7234}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8ADBD64A-3936-4A29-83D2-DC2A458A7234}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8ADBD64A-3936-4A29-83D2-DC2A458A7234}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -46,6 +52,7 @@ Global
 		{E6E6458C-354B-4690-9FE1-6CDFA30ABB30} = {1910FAAB-8D39-4947-8C14-571DC1B2D80F}
 		{330E0318-5726-4ED0-B22E-E3BFCFF0702E} = {1910FAAB-8D39-4947-8C14-571DC1B2D80F}
 		{ED2405F1-8101-49CA-A488-69B61D3F7A89} = {2C2F184E-394E-4424-ABD7-F4B90E1BBC43}
+		{8ADBD64A-3936-4A29-83D2-DC2A458A7234} = {1910FAAB-8D39-4947-8C14-571DC1B2D80F}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {B27302AC-C8D4-462E-A769-776E923B90C1}

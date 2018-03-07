@@ -1,6 +1,9 @@
 ﻿using LiteDB;
 using MonitorBoletos.Model;
+using System;
+using System.Collections.Generic;
 using System.Configuration;
+using System.Linq;
 
 namespace MonitorBoletos.DAO
 {
@@ -25,17 +28,28 @@ namespace MonitorBoletos.DAO
         /// 
         /// </summary>
         /// <param name="bank"></param>
-        public void InserirBanco(Banco bank)
+        public BsonValue Inserir(Banco bank)
         {
             using (var db = new LiteDatabase(Connection))
             {
                 var banco = db.GetCollection<Banco>(_tableName);
 
-                banco.Insert(bank);
+                return banco.Insert(bank);
             }
         }
 
-        public Banco getByNumero(Banco numero)
+        public IList<Banco> obterTodos()
+        {
+            using (var db = new LiteDatabase(Connection))
+            {
+                var banco = db.GetCollection<Banco>(_tableName);
+
+                var result = banco.FindAll().ToList();
+                return result;
+            }
+        }
+
+        public Banco GetByNumero(Banco numero)
         {
             using (var db = new LiteDatabase(Connection))
             {
@@ -47,7 +61,18 @@ namespace MonitorBoletos.DAO
             }
         }
 
-        public void atualizarBanco(Banco bank)
+        public Banco obterPorId(ObjectId id)
+        {
+            using (var db = new LiteDatabase(Connection))
+            {
+                var banco = db.GetCollection<Banco>(_tableName);
+
+                var result = banco.FindById(id);
+                return result;
+            }
+        }
+
+        public void atualizar(Banco bank)
         {
             using (var db = new LiteDatabase(Connection))
             {
@@ -57,7 +82,7 @@ namespace MonitorBoletos.DAO
             }
         }
 
-        public void deletarBanco(string bank)
+        public void deletar(string bank)
         {
             using (var db = new LiteDatabase(Connection))
             {
