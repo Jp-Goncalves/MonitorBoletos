@@ -102,8 +102,8 @@ namespace MonitorBoletos.Business
         /// Verifica o tipo de CNAB ao ler um Stream
         /// </summary>
         /// <param name="arquivo">stream a ser lido</param>
-        /// <returns>retorna um <see cref="TipoCnabEnum"/></returns>
-        public TipoCnabEnum verificaTipoCNAB(string arquivo)
+        /// <returns>retorna um <see cref="TipoArquivo"/></returns>
+        public TipoArquivo verificaTipoCNAB(string arquivo)
         {
             using (StreamReader stream = new StreamReader(arquivo, System.Text.Encoding.UTF8))
             {
@@ -112,10 +112,10 @@ namespace MonitorBoletos.Business
 
                 if (linha.Length > 240)
                 {
-                    return TipoCnabEnum.CNAB400;
+                    return TipoArquivo.CNAB400;
                 }
 
-                return TipoCnabEnum.CNAB240;
+                return TipoArquivo.CNAB240;
             }
         }
 
@@ -126,7 +126,7 @@ namespace MonitorBoletos.Business
         /// <param name="s">stream do arquivo a ser lido</param>
         /// <param name="tipo">informa o tipo do cnab a ser lido</param>
         /// <returns></returns>
-        public bool lerArquivoRetorno(Model.Banco b, Stream s, TipoCnabEnum tipo)
+        public bool lerArquivoRetorno(Model.Banco b, Stream s, TipoArquivo tipo)
         {
             try
             {
@@ -135,13 +135,14 @@ namespace MonitorBoletos.Business
 
                 switch (tipo)
                 {
-                    case TipoCnabEnum.CNAB400:
+                    case TipoArquivo.CNAB400:
                         cnab = new ArquivoRetornoCNAB400();
                         //cnab.LinhaDeArquivoLida += new EventHandler<LinhaDeArquivoLidaArgs>(cnab400_LinhaDeArquivoLida);
                         cnab.LerArquivoRetorno(banco, s);
+                        //cnab.TipoArquivo
                         break;
 
-                    case TipoCnabEnum.CNAB240:
+                    case TipoArquivo.CNAB240:
                         cnab = new ArquivoRetornoCNAB240();
                         cnab.LerArquivoRetorno(banco, s);
                         break;

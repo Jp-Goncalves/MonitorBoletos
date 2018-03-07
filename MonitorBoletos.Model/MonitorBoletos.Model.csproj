@@ -54,7 +54,6 @@
     <Compile Include="Licenca.cs" />
     <Compile Include="OcorrenciaCobranca.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="TipoCnab.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
