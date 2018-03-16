@@ -35,8 +35,8 @@
             this.txtMsg = new System.Windows.Forms.TextBox();
             this.linkLabel1 = new System.Windows.Forms.LinkLabel();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.btProcessarArquivoCronn = new System.Windows.Forms.Button();
             this.btSendEmail = new System.Windows.Forms.Button();
+            this.btProcessarArquivoCronn = new System.Windows.Forms.Button();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.listBoxMsg = new System.Windows.Forms.ListBox();
             this.groupBox1.SuspendLayout();
@@ -116,6 +116,17 @@
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "CRONN";
             // 
+            // btSendEmail
+            // 
+            this.btSendEmail.Enabled = false;
+            this.btSendEmail.Location = new System.Drawing.Point(30, 30);
+            this.btSendEmail.Name = "btSendEmail";
+            this.btSendEmail.Size = new System.Drawing.Size(75, 43);
+            this.btSendEmail.TabIndex = 1;
+            this.btSendEmail.Text = "Enviar o E-mail";
+            this.btSendEmail.UseVisualStyleBackColor = true;
+            this.btSendEmail.Click += new System.EventHandler(this.btSendEmail_Click);
+            // 
             // btProcessarArquivoCronn
             // 
             this.btProcessarArquivoCronn.Enabled = false;
@@ -126,15 +137,6 @@
             this.btProcessarArquivoCronn.Text = "Processar Arquivo";
             this.btProcessarArquivoCronn.UseVisualStyleBackColor = true;
             this.btProcessarArquivoCronn.Click += new System.EventHandler(this.btProcessarArquivoCronn_Click);
-            // 
-            // btSendEmail
-            // 
-            this.btSendEmail.Location = new System.Drawing.Point(30, 30);
-            this.btSendEmail.Name = "btSendEmail";
-            this.btSendEmail.Size = new System.Drawing.Size(75, 43);
-            this.btSendEmail.TabIndex = 1;
-            this.btSendEmail.Text = "Enviar o E-mail";
-            this.btSendEmail.UseVisualStyleBackColor = true;
             // 
             // groupBox3
             // 

@@ -9,6 +9,7 @@ using BoletoNet;
 using Semafaro.Titulos.Model;
 using Semafaro.Titulos.Business;
 using System.Linq;
+using MonitorBoletos.Util;
 
 namespace MonitorBoletos.DesktopView
 {
@@ -237,12 +238,37 @@ namespace MonitorBoletos.DesktopView
             listBoxMsg.Items.Add(string.Format("Quantidade de PrePago: {0}", PrePago.Count));
             listBoxMsg.Items.Add(string.Empty);
             resetarBotoes();
+
+            btSendEmail.Enabled = true;
         }
 
         private void resetarBotoes()
         {
             btProcessarArquivoCronn.Enabled = false;
             txtMsg.Clear();
+            btSendEmail.Enabled = false;
+        }
+
+        private void btSendEmail_Click(object sender, EventArgs e)
+        {
+            var listItens = new List<string>();
+            foreach (var item in listBoxMsg.Items)
+            {
+                listItens.Add(item.ToString());
+            }
+            var arquivo = new SendEmails();
+            try
+            {
+                arquivo.SendMail(listItens);
+                MessageBox.Show("E-mail enviado com sucesso!");
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+
+            resetarBotoes();
         }
     }
 }
