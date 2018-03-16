@@ -235,7 +235,6 @@ namespace MonitorBoletos.DesktopView
 
             listBoxMsg.Items.Add(string.Format("Quantidade de PosPago: {0}", PosPago.Count));
             listBoxMsg.Items.Add(string.Format("Quantidade de PrePago: {0}", PrePago.Count));
-
             listBoxMsg.Items.Add(string.Empty);
             resetarBotoes();
         }
