@@ -82,6 +82,7 @@
     <Compile Include="EmpresaBusiness.cs" />
     <Compile Include="HeaderBusiness.cs" />
     <Compile Include="LicencaBusiness.cs" />
+    <Compile Include="OcorrenciaCobrancaBusiness.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

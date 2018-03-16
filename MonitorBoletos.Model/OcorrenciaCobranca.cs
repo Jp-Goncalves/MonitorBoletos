@@ -20,7 +20,7 @@ namespace MonitorBoletos.Model
 
         public string CodigoOcorrencia { get; set; }
 
-        public IList<string> MotivosOcorrencia { get; set; }
+        public string MotivosOcorrencia { get; set; }
 
         public string DataOcorrencia { get; set; }
 

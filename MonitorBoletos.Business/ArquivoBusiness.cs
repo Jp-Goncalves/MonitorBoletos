@@ -137,9 +137,7 @@ namespace MonitorBoletos.Business
                 {
                     case TipoArquivo.CNAB400:
                         cnab = new ArquivoRetornoCNAB400();
-                        //cnab.LinhaDeArquivoLida += new EventHandler<LinhaDeArquivoLidaArgs>(cnab400_LinhaDeArquivoLida);
                         cnab.LerArquivoRetorno(banco, s);
-                        //cnab.TipoArquivo
                         break;
 
                     case TipoArquivo.CNAB240:
@@ -150,13 +148,53 @@ namespace MonitorBoletos.Business
                     default:
                         break;
                 }
-
                 return false;
             }
             catch (Exception ex)
             {
-                throw new Exception("Erro ao ler o arquivo de retorno.",ex.InnerException);
-            }            
+                throw new Exception("Erro ao ler o arquivo de retorno.", ex.InnerException);
+            }
+        }
+        /// <summary>
+        /// Metodo para processar um arquivo de retorno do tipo Cnab400
+        /// </summary>
+        /// <param name="banco"><see cref="Model.Banco">vinculado ao arquivo</param>
+        /// <param name="stream">stream do arquivo a ser lido</param>
+        /// <returns><see cref="BoletoNet.ArquivoRetornoCNAB400"></returns>
+        public ArquivoRetornoCNAB400 Retorno400(Model.Banco banco, Stream stream)
+        {
+            try
+            {
+                var cnab400 = new ArquivoRetornoCNAB400();
+                var bank = new BoletoNet.Banco(banco.Numero);
+                cnab400.LerArquivoRetorno(bank, stream);
+                return cnab400;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Erro ao ler o arquivo de retorno.", ex.InnerException);
+            }
+        }
+
+        /// <summary>
+        /// Metodo para processar um arquivo de retorno do tipo Cnab200
+        /// </summary>
+        /// <param name="banco"><see cref="Model.Banco">vinculado ao arquivo</param>
+        /// <param name="stream">stram do arquivo a ser lido</param>
+        /// <returns><see cref="BoletoNet.ArquivoRetornoCNAB240"></returns>
+        public ArquivoRetornoCNAB240 Retorno200(Model.Banco banco, Stream stream)
+        {
+            try
+            {
+                var cnab200 = new ArquivoRetornoCNAB240();
+                var bank = new BoletoNet.Banco(banco.Numero);
+                cnab200.LerArquivoRetorno(bank, stream);
+                return cnab200;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Erro ao ler o arquivo de retorno.", ex.InnerException);
+            }
         }
 
         #region IDisposable Support

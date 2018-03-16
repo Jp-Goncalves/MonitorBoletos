@@ -116,6 +116,10 @@
       <Project>{8adbd64a-3936-4a29-83d2-dc2a458a7234}</Project>
       <Name>MonitorBoletos.Util</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Semafaro.Titulos\Semafaro.Titulos.csproj">
+      <Project>{b567e675-44f6-45b7-a971-632e90217b4a}</Project>
+      <Name>Semafaro.Titulos</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
