@@ -7,6 +7,9 @@ using System.Threading.Tasks;
 
 namespace MonitorBoletos.Model
 {
+    /// <summary>
+    /// 
+    /// </summary>
     public class Arquivo
     {
         public ObjectId Id { get; set; }

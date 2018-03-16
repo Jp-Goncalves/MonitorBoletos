@@ -14,12 +14,12 @@ namespace MonitorBoletos.Util
             var listItens = new List<String>();
 
             //variavel que armazena o e-mail que recebera a mensagem
-            //var toAddress = new MailAddress("financeiro@grupocard.com.br");
-            var toAddress = new MailAddress("joao.goncalves@grupocard.com.br");
+            //var toAddress = new MailAddress("");
+            var toAddress = new MailAddress("");
 
             //variabel que armazena o e-mail e a senha que será usado para enviar o e-mail
-            var fromAddress = new MailAddress("joao.goncalves@grupocard.com.br", "João Paulo");
-            const string fromPassword = "joa230987";
+            var fromAddress = new MailAddress("", "João Paulo");
+            const string fromPassword = "";
 
             //Cria conexao com o servidor do grupo card
             SmtpClient smtp = new SmtpClient

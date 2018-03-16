@@ -7,6 +7,9 @@ using System.Threading.Tasks;
 
 namespace MonitorBoletos.Model
 {
+    /// <summary>
+    /// Entidade financeira - Banco
+    /// </summary>
     public class Banco
     {
         public ObjectId Id { get; set; }

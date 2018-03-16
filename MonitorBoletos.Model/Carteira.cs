@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 
 namespace MonitorBoletos.Model
 {
+
     public class Carteira
     {
         public ObjectId Id { get; set; }
