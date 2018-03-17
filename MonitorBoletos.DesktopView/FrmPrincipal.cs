@@ -60,7 +60,6 @@ namespace MonitorBoletos.DesktopView
                         using (var bussBanco = new BancoBusiness())
                         {
                             var cbItem = cbBancos.SelectedValue;
-
                             var banco = bussBanco.ObterPorID(cbItem);
 
                             //lê o arquivo de retorno
