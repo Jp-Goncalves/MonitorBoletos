@@ -1,6 +1,8 @@
 ﻿using LiteDB;
 using MonitorBoletos.Model;
+using System.Collections.Generic;
 using System.Configuration;
+using System.Linq;
 
 namespace MonitorBoletos.DAO
 {
@@ -24,13 +26,13 @@ namespace MonitorBoletos.DAO
         /// 
         /// </summary>
         /// <param name="file"></param>
-        public void InserirArquivo(Arquivo file)
+        public BsonValue Inserir(Arquivo file)
         {
             using (var db = new LiteDatabase(Connection))
             {
                 var arquivo = db.GetCollection<Arquivo>(_tableName);
 
-                arquivo.Insert(file);
+                return arquivo.Insert(file);
             }
         }
 
@@ -51,6 +53,10 @@ namespace MonitorBoletos.DAO
             }
         }
 
+        /// <summary>
+        /// Atualiza um registro que ja existe
+        /// </summary>
+        /// <param name="file"></param>
         public void atualizarBanco(Arquivo file)
         {
             using (var db = new LiteDatabase(Connection))
@@ -61,6 +67,10 @@ namespace MonitorBoletos.DAO
             }
         }
 
+        /// <summary>
+        /// Deleta um arquivo
+        /// </summary>
+        /// <param name="file"></param>
         public void deletarArquivo(string file)
         {
             using (var db = new LiteDatabase(Connection))
@@ -68,6 +78,21 @@ namespace MonitorBoletos.DAO
                 var arquivo = db.GetCollection<Arquivo>(_tableName);
 
                 arquivo.Delete(file);
+            }
+        }
+
+        /// <summary>
+        /// Retorna uma lista com todos os objetos
+        /// </summary>
+        /// <returns></returns>
+        public IList<Arquivo> obterTodos()
+        {
+            using (var db = new LiteDatabase(Connection))
+            {
+                var arquivo = db.GetCollection<Arquivo>(_tableName);
+
+                var result = arquivo.FindAll().ToList();
+                return result;
             }
         }
         #endregion

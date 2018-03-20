@@ -15,6 +15,11 @@ namespace MonitorBoletos.Business
     /// </summary>
     public class ArquivoBusiness : IDisposable
     {
+
+        #region Atributos e Propriedades
+        private ArquivoDAO dao = new ArquivoDAO();
+        #endregion
+
         #region Construtor
         public ArquivoBusiness()
         {
@@ -23,6 +28,34 @@ namespace MonitorBoletos.Business
         #endregion
 
         #region Metodos Publicos
+
+        #region CRUD
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="arquivo"></param>
+        /// <returns></returns>
+        public bool Salvar(Arquivo arquivo)
+        {
+            var result = dao.Inserir(arquivo);
+            if (result == null)
+            {
+                return false;
+            }
+
+            return true;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        public IList<Arquivo> ObterTodos()
+        {
+            return dao.obterTodos();
+        }
+        #endregion
+
         public bool validarArquivo(string filename)
         {
             //TODO : Criar rotina para validar arquivo
@@ -118,36 +151,6 @@ namespace MonitorBoletos.Business
             }
         }
 
-        #region Salvar Arquivo
-        /// <summary>
-        /// Salva o arquivo no formato 400
-        /// </summary>
-        /// <param name="b">Banco vinculado</param>
-        /// <param name="cnab">Cnab no formato 400</param>
-        /// <returns></returns>
-        private bool salvarArquivo400(Model.Banco b, ArquivoRetornoCNAB400 cnab)
-        {
-            var a = new Arquivo();
-            //TODO Salvar o arquivo e seus vinculos
-
-            return false;
-        }
-
-        /// <summary>
-        /// Salva o arquivo no formato 240
-        /// </summary>
-        /// <param name="b">Banco vinculado</param>
-        /// <param name="cnab">Cnab no formato 240</param>
-        /// <returns></returns>
-        private bool salvarArquivo240(Model.Banco b, ArquivoRetornoCNAB240 cnab)
-        {
-            var a = new Arquivo();
-
-
-            return false;
-        }
-        #endregion
-
         /// <summary>
         /// Metodo para processar um arquivo de retorno do tipo Cnab400
         /// </summary>
@@ -226,6 +229,45 @@ namespace MonitorBoletos.Business
         #endregion
 
         #endregion
+
+        #region Metodos Privados
+
+        #region Salvar Arquivo
+        /// <summary>
+        /// Salva o arquivo no formato 400
+        /// </summary>
+        /// <param name="b">Banco vinculado</param>
+        /// <param name="cnab">Cnab no formato 400</param>
+        /// <returns></returns>
+        private bool salvarArquivo400(Model.Banco b, ArquivoRetornoCNAB400 cnab)
+        {
+            var a = new Arquivo();
+            a.DataProcessamento = DateTime.Now;
+            a.Usuario = "Usuário Teste";
+
+            return Salvar(a);
+        }
+
+        /// <summary>
+        /// Salva o arquivo no formato 240
+        /// </summary>
+        /// <param name="b">Banco vinculado</param>
+        /// <param name="cnab">Cnab no formato 240</param>
+        /// <returns></returns>
+        private bool salvarArquivo240(Model.Banco b, ArquivoRetornoCNAB240 cnab)
+        {
+            var a = new Arquivo();
+            a.DataProcessamento = DateTime.Now;
+            a.Usuario = "Usuário Teste";
+
+            dao.Inserir(a);
+
+            return false;
+        }
+        #endregion
+
+        #endregion
+
     }
 
 }
