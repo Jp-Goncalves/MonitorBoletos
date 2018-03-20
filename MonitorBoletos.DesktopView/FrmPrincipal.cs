@@ -26,10 +26,6 @@ namespace MonitorBoletos.DesktopView
         #region Campos
         ArquivoRetornoCNAB400 cnab400 = new BoletoNet.ArquivoRetornoCNAB400();
         ArquivoRetornoCNAB240 cnab240 = new ArquivoRetornoCNAB240();
-        List<string> tipo02 = new List<string>();
-        List<string> tipo06 = new List<string>();
-        List<string> tipo10 = new List<string>();
-        List<string> tipo17 = new List<string>();
         List<string> outrasOcorrencias = new List<string>();
         List<string> NossoNumeroNaoEncontado = new List<string>();
 
@@ -133,8 +129,13 @@ namespace MonitorBoletos.DesktopView
         /// </summary>
         private void processarArquivoCronn_PRD_SgvCobranca()
         {
-            //Cria uma lista com o NossoNumero
+            //Cria uma lista com o NossoNumero e separado por tipos
             List<string> listaNossoNumero = new List<string>();
+            List<string> tipo02 = new List<string>();
+            List<string> tipo06 = new List<string>();
+            List<string> tipo10 = new List<string>();
+            List<string> tipo17 = new List<string>();
+
             //abre o objeto cnab400 e varre a ListDetalhe, que contem as ocorrencias
             foreach (var item in cnab400.ListaDetalhe)
             {

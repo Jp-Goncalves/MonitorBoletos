@@ -47,48 +47,8 @@ namespace MonitorBoletos.Business
         public Model.Banco validarArquivoLicenca(string arquivo)
         {
             var banco = new Model.Banco();
-            //var empresa = new Empresa();
-            //var carteira = new Carteira();
-            //var contaCorrente = new ContaCorrente();
-            //var licenca = new Licenca();
-
             var header = new HeaderBusiness();
             var result = header.leitorHeader(arquivo);
-
-
-            //using (var leitor = new StreamReader(arquivo))
-            //{
-            //    var resultado = leitor.ReadLine();
-
-            //    if (resultado.Contains(drj))
-            //    {
-            //        cobreBem.ArquivoLicenca = @"C:\Temp\Monitor\lic\13263506000135-237-04.conf";
-            //    }
-            //    else if (resultado.Contains(log))
-            //    {
-            //        cobreBem.ArquivoLicenca = @"C:\Temp\Monitor\lic\09427183000109-237-04.conf";
-            //    }
-            //    else if (resultado.Contains(rdc))
-            //    {
-            //        cobreBem.ArquivoLicenca = @"C:\Temp\Monitor\lic\09446526000174-237-04.conf";
-            //    }
-
-            //    cobreBem.ArquivoRetorno.Diretorio = Path.GetDirectoryName(arquivo);
-
-            //    banco.Nome = cobreBem.NomeBanco;
-            //    banco.Numero = cobreBem.NumeroBanco;
-            //    empresa.Nome = cobreBem.NomeCedente;
-            //    empresa.Cnpj = cobreBem.CnpjCpfCedente;
-            //    carteira.Numero = Convert.ToInt32(cobreBem.CodigoCarteira);
-            //    contaCorrente.Numero = cobreBem.NumeroContaCorrente;
-            //    contaCorrente.Banco = banco;
-            //    contaCorrente.Empresa = empresa;
-            //    licenca.Diretorio = cobreBem.ArquivoLicenca;
-            //    licenca.Nome = Path.GetFileName(arquivo);
-            //}
-
-            //var bank = new BancoBusiness();
-            //bank.validaBanco(banco);
 
             return banco;
         }
@@ -144,7 +104,6 @@ namespace MonitorBoletos.Business
                     case TipoArquivo.CNAB240:
                         cnab = new ArquivoRetornoCNAB240();
                         cnab.LerArquivoRetorno(banco, s);
-                        return salvarArquivo240(b, (ArquivoRetornoCNAB240)cnab);
                         return salvarArquivo240(b, (ArquivoRetornoCNAB240)cnab);
                         break;
 
