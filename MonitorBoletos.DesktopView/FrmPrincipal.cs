@@ -40,7 +40,7 @@ namespace MonitorBoletos.DesktopView
         /// <summary>
         /// Processa o arquivo de retorno
         /// </summary>
-        private void lerArquivoRetorno()
+        private bool LerArquivoRetorno()
         {
             try
             {
@@ -66,48 +66,34 @@ namespace MonitorBoletos.DesktopView
                             using (var bussArquivo = new ArquivoBusiness())
                             {
                                 var tipo = bussArquivo.verificaTipoCNAB(openFile.FileName);
-                                bussArquivo.lerArquivoRetorno(banco, openFile.OpenFile(), tipo);
-
-                                //verificar se é do tipo Cnab400
-                                if (tipo.ToString() == "CNAB400")
-                                {
-                                    cnab400 = bussArquivo.Retorno400(banco, openFile.OpenFile());
-                                }
-                                else
-                                {
-                                    cnab240 = bussArquivo.Retorno200(banco, openFile.OpenFile());
-                                }
+                                return bussArquivo.lerArquivoRetorno(banco, openFile.OpenFile(), tipo);
                             }
                         }
                     }
-                    else
-                    {
-                        MessageBox.Show("Arquivo não processado!");
-                        return;
-                    }
                 }
+                return false;
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message, "Erro ao abrir arquivo de retorno.");
-            }
-            if (cnab400 != null)
-            {
-                btProcessarArquivoCronn.Enabled = true;
-            }
-            else if (cnab240 != null)
-            {
-                btProcessarArquivoCronn.Enabled = true;
-            }
-            else
-            {
-                MessageBox.Show("Erro ao ler o arquivo, por favor entre em contato com o suporte!");
+                throw ex;
             }
         }
 
+        /// <summary>
+        /// Envia o arquivo para ser processado
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private async void btEnviar_Click(object sender, EventArgs e)
         {
-            lerArquivoRetorno();
+            if (LerArquivoRetorno())
+            {
+                //TODO Carregar o grid (atualizar)
+            }
+            else
+            {
+                //TODO Exibir msg ao usuario
+            }
         }
 
         #endregion

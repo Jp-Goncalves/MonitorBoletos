@@ -138,11 +138,14 @@ namespace MonitorBoletos.Business
                     case TipoArquivo.CNAB400:
                         cnab = new ArquivoRetornoCNAB400();
                         cnab.LerArquivoRetorno(banco, s);
+                        return salvarArquivo400(b, (ArquivoRetornoCNAB400)cnab);
                         break;
 
                     case TipoArquivo.CNAB240:
                         cnab = new ArquivoRetornoCNAB240();
                         cnab.LerArquivoRetorno(banco, s);
+                        return salvarArquivo240(b, (ArquivoRetornoCNAB240)cnab);
+                        return salvarArquivo240(b, (ArquivoRetornoCNAB240)cnab);
                         break;
 
                     default:
@@ -155,6 +158,25 @@ namespace MonitorBoletos.Business
                 throw new Exception("Erro ao ler o arquivo de retorno.", ex.InnerException);
             }
         }
+
+        #region Salvar Arquivo
+        private bool salvarArquivo400(Model.Banco b, ArquivoRetornoCNAB400 cnab)
+        {
+            var a = new Arquivo();
+
+
+            return false;
+        }
+
+        private bool salvarArquivo240(Model.Banco b, ArquivoRetornoCNAB240 cnab)
+        {
+            var a = new Arquivo();
+
+
+            return false;
+        }
+        #endregion
+
         /// <summary>
         /// Metodo para processar um arquivo de retorno do tipo Cnab400
         /// </summary>

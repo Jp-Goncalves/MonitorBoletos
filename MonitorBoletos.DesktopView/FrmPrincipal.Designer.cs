@@ -39,9 +39,11 @@
             this.btProcessarArquivoCronn = new System.Windows.Forms.Button();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.listBoxMsg = new System.Windows.Forms.ListBox();
+            this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
             // 
             // groupBox1
@@ -151,16 +153,25 @@
             // listBoxMsg
             // 
             this.listBoxMsg.FormattingEnabled = true;
-            this.listBoxMsg.Location = new System.Drawing.Point(13, 268);
+            this.listBoxMsg.Location = new System.Drawing.Point(13, 450);
             this.listBoxMsg.Name = "listBoxMsg";
-            this.listBoxMsg.Size = new System.Drawing.Size(486, 264);
+            this.listBoxMsg.Size = new System.Drawing.Size(486, 82);
             this.listBoxMsg.TabIndex = 6;
+            // 
+            // dataGridView1
+            // 
+            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridView1.Location = new System.Drawing.Point(13, 268);
+            this.dataGridView1.Name = "dataGridView1";
+            this.dataGridView1.Size = new System.Drawing.Size(486, 164);
+            this.dataGridView1.TabIndex = 7;
             // 
             // FrmPrincipal
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(511, 546);
+            this.Controls.Add(this.dataGridView1);
             this.Controls.Add(this.listBoxMsg);
             this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.groupBox2);
@@ -173,6 +184,7 @@
             this.groupBox2.ResumeLayout(false);
             this.groupBox3.ResumeLayout(false);
             this.groupBox3.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -190,6 +202,7 @@
         private System.Windows.Forms.Button btSendEmail;
         private System.Windows.Forms.GroupBox groupBox3;
         private System.Windows.Forms.ListBox listBoxMsg;
+        private System.Windows.Forms.DataGridView dataGridView1;
     }
 }
 
