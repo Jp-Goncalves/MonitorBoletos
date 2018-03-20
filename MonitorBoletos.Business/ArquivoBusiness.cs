@@ -163,7 +163,7 @@ namespace MonitorBoletos.Business
         private bool salvarArquivo400(Model.Banco b, ArquivoRetornoCNAB400 cnab)
         {
             var a = new Arquivo();
-
+            //TODO Salvar o arquivo e seus vinculos
 
             return false;
         }
