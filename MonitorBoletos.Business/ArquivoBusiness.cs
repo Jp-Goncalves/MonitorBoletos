@@ -160,6 +160,12 @@ namespace MonitorBoletos.Business
         }
 
         #region Salvar Arquivo
+        /// <summary>
+        /// Salva o arquivo no formato 400
+        /// </summary>
+        /// <param name="b">Banco vinculado</param>
+        /// <param name="cnab">Cnab no formato 400</param>
+        /// <returns></returns>
         private bool salvarArquivo400(Model.Banco b, ArquivoRetornoCNAB400 cnab)
         {
             var a = new Arquivo();
@@ -168,6 +174,12 @@ namespace MonitorBoletos.Business
             return false;
         }
 
+        /// <summary>
+        /// Salva o arquivo no formato 240
+        /// </summary>
+        /// <param name="b">Banco vinculado</param>
+        /// <param name="cnab">Cnab no formato 240</param>
+        /// <returns></returns>
         private bool salvarArquivo240(Model.Banco b, ArquivoRetornoCNAB240 cnab)
         {
             var a = new Arquivo();
