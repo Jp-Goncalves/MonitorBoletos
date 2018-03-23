@@ -10,6 +10,11 @@ namespace Semafaro.Titulos.Business
 {
     public class CronnSgvCobrancaBusiness
     {
+        /// <summary>
+        /// Encontra o nosso numero no Cronn_PRD cobrança
+        /// </summary>
+        /// <param name="nossoNumero"></param>
+        /// <returns>um objeto do tipo CronnSgvCobranca</returns>
         public CronnSgvCobranca ObterCronnSgvCobranca(string nossoNumero)
         {
             var dao = new CronnSgvCobrancaDAO();

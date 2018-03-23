@@ -18,9 +18,9 @@ namespace MonitorBoletos.Model
 
         public string Diretorio { get; set; }
 
-        public Carteira Carteira { get; set; }
+        //public Carteira Carteira { get; set; }
 
-        public ContaCorrente ContaCorrente { get; set; }
+        //public ContaCorrente ContaCorrente { get; set; }
 
         public IList<OcorrenciaCobranca> OcorrenciasCobranca { get; set; }
 

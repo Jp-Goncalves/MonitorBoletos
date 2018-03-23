@@ -23,7 +23,7 @@ namespace MonitorBoletos.DAO
 
         #region Public Methods
         /// <summary>
-        /// 
+        /// Inseri um registro novo no banco
         /// </summary>
         /// <param name="file"></param>
         public BsonValue Inserir(Arquivo file)
@@ -37,7 +37,7 @@ namespace MonitorBoletos.DAO
         }
 
         /// <summary>
-        /// 
+        /// Pega um registro a partir do numero
         /// </summary>
         /// <param name="file"></param>
         /// <returns></returns>
@@ -45,9 +45,9 @@ namespace MonitorBoletos.DAO
         {
             using (var db = new LiteDatabase(Connection))
             {
-                var banco = db.GetCollection<Arquivo>(_tableName);
+                var arquivo = db.GetCollection<Arquivo>(_tableName);
 
-                var result = banco.FindById(file);
+                var result = arquivo.FindById(file);
 
                 return result;
             }
@@ -57,7 +57,7 @@ namespace MonitorBoletos.DAO
         /// Atualiza um registro que ja existe
         /// </summary>
         /// <param name="file"></param>
-        public void atualizarBanco(Arquivo file)
+        public void Atualizar(Arquivo file)
         {
             using (var db = new LiteDatabase(Connection))
             {

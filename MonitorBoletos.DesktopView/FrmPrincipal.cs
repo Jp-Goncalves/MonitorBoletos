@@ -10,6 +10,7 @@ using Semafaro.Titulos.Model;
 using Semafaro.Titulos.Business;
 using System.Linq;
 using MonitorBoletos.Util;
+using System.Data;
 
 namespace MonitorBoletos.DesktopView
 {
@@ -84,11 +85,13 @@ namespace MonitorBoletos.DesktopView
         {
             if (LerArquivoRetorno())
             {
-                //TODO Carregar o grid (atualizar)
+                atualizarGridView();
+                MessageBox.Show("Leitura realizada com sucesso!", "Arquivo Retorno", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                btProcessarArquivoCronn.Enabled = true;
             }
             else
             {
-                //TODO Exibir msg ao usuario
+                MessageBox.Show("Não foi possivel ler o arquivo", "Arquivo Retorno", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
         }
 
@@ -99,16 +102,98 @@ namespace MonitorBoletos.DesktopView
             new FrmCadastroBanco().Show();
         }
 
+        /// <summary>
+        /// Metodos executados ao carregar o formulario
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void FrmPrincipal_Load(object sender, EventArgs e)
         {
             atualizarComboBanco();
+
+            atualizarGridView();
         }
 
+        /// <summary>
+        /// Ao clicar no botão atualizar
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void lnkAtualizarCbBancos_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             atualizarComboBanco();
+
+            atualizarGridView();
         }
 
+        private void atualizarGridView()
+        {
+            using (var bc = new ArquivoBusiness())
+            {
+                //Cria um DataTable referente ao objeto Arquivo e as colunas que serão mostradas na Grid
+                var dtArquivo = new DataTable();
+                dtArquivo.Columns.Add("Nome", typeof(string));
+                dtArquivo.Columns.Add("Diretorio", typeof(string));
+                dtArquivo.Columns.Add("OcorrenciasCobranca", typeof(string));
+                dtArquivo.Columns.Add("DataUpload", typeof(DateTime));
+                dtArquivo.Columns.Add("DataProcessamento", typeof(DateTime));
+                dtArquivo.Columns.Add("Usuario", typeof(string));
+
+                //Cria um DataTable referente ao objeto Arquivo e as colunas que serão mostradas na Grid
+                var dtOcorrencias = new DataTable();
+                dtOcorrencias.Columns.Add("NossoNumero");
+
+                //Pega todos os objetos do tipo Arquivo que se encontram no banco de dados
+                var file = new List<Arquivo>();
+                file = (List<Arquivo>)bc.ObterTodos();
+                var ocorrencias = new List<OcorrenciaCobranca>();
+                var ocorrenciaBusiness = new OcorrenciaCobrancaBusiness();
+
+                ocorrencias = (List<OcorrenciaCobranca>)ocorrenciaBusiness.ObterTodos();
+
+                //Percorre a List de objetos do tipo Arquivo
+                foreach (var item in file)
+                {
+                    //Adiciona cd linha na sua respectiva coluna
+                    DataRow row = dtArquivo.NewRow();
+                    row["Nome"] = item.Nome;
+                    row["Diretorio"] = item.Diretorio;
+                    row["DataUpload"] = item.DataUpload;
+                    row["DataProcessamento"] = item.DataProcessamento;
+                    row["Usuario"] = item.Usuario;
+                    dtArquivo.Rows.Add(row);
+
+                    ocorrencias = (List<OcorrenciaCobranca>)item.OcorrenciasCobranca;
+                    foreach (var itens in ocorrencias)
+                    {
+                        DataRow rowOcorrencia = dtOcorrencias.NewRow();
+                        rowOcorrencia["NossoNumero"] = itens.NossoNumero;
+                        dtOcorrencias.Rows.Add(rowOcorrencia);
+                        row["OcorrenciasCobranca"] = itens.NossoNumero;
+                    }
+                }
+                DataSet dataSet = new DataSet();
+                dataSet.Tables.Add(dtArquivo);
+                dataSet.Tables.Add(dtOcorrencias);
+
+                DataRelation dataRelation = new DataRelation("Nossos Numeros", dataSet.Tables[0].Columns[2], dataSet.Tables[1].Columns[0], true);
+                dataSet.Relations.Add(dataRelation);
+
+                //Popula a Grid com o DataTable
+                dataGridView1.DataSource = dataSet;
+            }
+
+
+            //using (var bc = new ArquivoBusiness())
+            //{
+            //    dataGridView1.DataSource = bc.ObterTodos();
+            //    var arquivo = bc.ObterTodos();
+            //}
+        }
+
+        /// <summary>
+        /// Atualizando o combo com os registros já cadastrados
+        /// </summary>
         private void atualizarComboBanco()
         {
             using (BancoBusiness bc = new BancoBusiness())
@@ -119,16 +204,19 @@ namespace MonitorBoletos.DesktopView
             }
         }
 
+
+
         private async void btProcessarArquivoCronn_Click(object sender, EventArgs e)
         {
-            processarArquivoCronn_PRD_SgvCobranca();
+            processarArquivoCronn_PRD_SgvCobranca(cnab400);
         }
 
         /// <summary>
         /// Processa o arquivo na base Cronn_PRD
         /// </summary>
-        private void processarArquivoCronn_PRD_SgvCobranca()
+        private void processarArquivoCronn_PRD_SgvCobranca(ArquivoRetornoCNAB400 cnab400)
         {
+
             //Cria uma lista com o NossoNumero e separado por tipos
             List<string> listaNossoNumero = new List<string>();
             List<string> tipo02 = new List<string>();

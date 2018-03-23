@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Security.Principal;
 using System.Text.RegularExpressions;
 
 namespace MonitorBoletos.Business
@@ -31,10 +32,10 @@ namespace MonitorBoletos.Business
 
         #region CRUD
         /// <summary>
-        /// 
+        /// Chama a DAO para salvar um objeto Arquivo
         /// </summary>
         /// <param name="arquivo"></param>
-        /// <returns></returns>
+        /// <returns>Retorna true caso consiga salvar e false caso de algum problema</returns>
         public bool Salvar(Arquivo arquivo)
         {
             var result = dao.Inserir(arquivo);
@@ -47,7 +48,7 @@ namespace MonitorBoletos.Business
         }
 
         /// <summary>
-        /// 
+        /// Chama o DAO para Obter todos os objetos no LiteDB
         /// </summary>
         /// <returns></returns>
         public IList<Arquivo> ObterTodos()
@@ -58,7 +59,7 @@ namespace MonitorBoletos.Business
 
         public bool validarArquivo(string filename)
         {
-            //TODO : Criar rotina para validar arquivo
+      
             var result = filename;
             var extensao = Path.GetExtension(result).ToUpper();
             var ext = ".RET";
@@ -131,7 +132,7 @@ namespace MonitorBoletos.Business
                     case TipoArquivo.CNAB400:
                         cnab = new ArquivoRetornoCNAB400();
                         cnab.LerArquivoRetorno(banco, s);
-                        return salvarArquivo400(b, (ArquivoRetornoCNAB400)cnab);
+                        return salvarArquivo400(b, (ArquivoRetornoCNAB400)cnab, s);
                         break;
 
                     case TipoArquivo.CNAB240:
@@ -239,11 +240,19 @@ namespace MonitorBoletos.Business
         /// <param name="b">Banco vinculado</param>
         /// <param name="cnab">Cnab no formato 400</param>
         /// <returns></returns>
-        private bool salvarArquivo400(Model.Banco b, ArquivoRetornoCNAB400 cnab)
+        private bool salvarArquivo400(Model.Banco b, ArquivoRetornoCNAB400 cnab, Stream stream)
         {
             var a = new Arquivo();
+            FileStream fs = stream as FileStream;
+            var directoryName = Path.GetDirectoryName(fs.Name);
+            var listaOcorrencias = new OcorrenciaCobranca();
+            var lerOcorrencias = new OcorrenciaCobrancaBusiness();
+
+            a.Nome = fs.Name.Split('\\').Last();
+            a.Diretorio = directoryName;
+            //a.OcorrenciasCobranca = lerOcorrencias.ocorrenciasCnab400(cnab);
             a.DataProcessamento = DateTime.Now;
-            a.Usuario = "Usuário Teste";
+            a.Usuario = WindowsIdentity.GetCurrent().Name.Split('\\')[1].Trim();
 
             return Salvar(a);
         }
@@ -258,7 +267,7 @@ namespace MonitorBoletos.Business
         {
             var a = new Arquivo();
             a.DataProcessamento = DateTime.Now;
-            a.Usuario = "Usuário Teste";
+            a.Usuario = WindowsIdentity.GetCurrent().Name.Split('\\')[1].Trim();
 
             dao.Inserir(a);
 

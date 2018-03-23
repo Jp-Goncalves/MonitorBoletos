@@ -5,12 +5,53 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using BoletoNet;
+using MonitorBoletos.DAO;
 
 namespace MonitorBoletos.Business
 {
     public class OcorrenciaCobrancaBusiness
     {
-        public List<OcorrenciaCobranca> ocorrenciasCnab400(ArquivoRetornoCNAB400 retornoCNAB400)
+        #region Atributos e Propriedades
+        private OcorrenciaCobrancaDAO dao = new OcorrenciaCobrancaDAO();
+        #endregion
+
+        #region CRUD
+
+        /// <summary>
+        /// Chama o DAO para Inserir um objeto OcorrenciaCobranca
+        /// </summary>
+        /// <param name="ocorrenciaCobranca"></param>
+        /// <returns></returns>
+        public bool Salvar(OcorrenciaCobranca ocorrenciaCobranca)
+        {
+            var result = dao.Inserir(ocorrenciaCobranca);
+            if (result == null)
+            {
+                return false;
+            }
+            return true;
+
+        }
+
+        /// <summary>
+        /// Chama o DAO para Obter todos os objetos no LiteDB
+        /// </summary>
+        /// <returns></returns>
+        public IList<OcorrenciaCobranca> ObterTodos()
+        {
+            return dao.obterTodos();
+        }
+
+        #endregion
+
+        #region Public Methods
+
+        /// <summary>
+        /// Transforma um objeto do tipo ArquivoRetornoCNAB400 em um OcorrenciaCobranca
+        /// </summary>
+        /// <param name="retornoCNAB400"></param>
+        /// <returns></returns>
+        public bool ocorrenciasCnab400(ArquivoRetornoCNAB400 retornoCNAB400)
         {
             var listaOcorrencias = new List<OcorrenciaCobranca>();
             var ocorrencia = new OcorrenciaCobranca();
@@ -22,7 +63,7 @@ namespace MonitorBoletos.Business
                 ocorrencia.CodigoOcorrencia = item.CodigoOcorrencia.ToString();
                 ocorrencia.MotivosOcorrencia = item.MotivoCodigoOcorrencia;
                 ocorrencia.DataOcorrencia = item.DataOcorrencia.ToString();
-                ocorrencia.Pagamento = item.ValorPago > 0 ?  true : false;
+                ocorrencia.Pagamento = item.ValorPago > 0 ? true : false;
                 ocorrencia.DataCredito = item.DataCredito.ToString();
                 ocorrencia.ValorPago = Convert.ToDouble(item.ValorPago);
                 ocorrencia.ValorMultaPaga = Convert.ToDouble(item.ValorMulta);
@@ -42,10 +83,13 @@ namespace MonitorBoletos.Business
                 ocorrencia.ValorAbatimento = Convert.ToDouble(item.ValorAbatimento);
                 ocorrencia.ValorIOF = Convert.ToDouble(item.IOF);
                 ocorrencia.ValorOutrasDespesas = Convert.ToDouble(item.ValorOutrasDespesas);
+
                 listaOcorrencias.Add(ocorrencia);
+
+                Salvar(ocorrencia);
             }
-            
-            return listaOcorrencias;
+            return true;
         }
+        #endregion
     }
 }
