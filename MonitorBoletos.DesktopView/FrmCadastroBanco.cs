@@ -20,7 +20,7 @@ namespace MonitorBoletos.DesktopView
         }
 
         private void button1_Click(object sender, EventArgs e)
-        {
+                {
             var banco = new Banco();
 
             banco.Nome = tbNomeBanco.Text;

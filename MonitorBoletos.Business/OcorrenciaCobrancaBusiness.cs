@@ -30,7 +30,6 @@ namespace MonitorBoletos.Business
                 return false;
             }
             return true;
-
         }
 
         /// <summary>
@@ -42,6 +41,16 @@ namespace MonitorBoletos.Business
             return dao.obterTodos();
         }
 
+        /// <summary>
+        /// Chama o DAO para Obter um registro pelo Id
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns>retorna um <see cref="OcorrenciaCobranca"></returns>
+        public OcorrenciaCobranca ObterPorId(string id)
+        {
+            return dao.getByNumero(id);
+        }
+
         #endregion
 
         #region Public Methods
@@ -50,8 +59,8 @@ namespace MonitorBoletos.Business
         /// Transforma um objeto do tipo ArquivoRetornoCNAB400 em um OcorrenciaCobranca
         /// </summary>
         /// <param name="retornoCNAB400"></param>
-        /// <returns></returns>
-        public bool ocorrenciasCnab400(ArquivoRetornoCNAB400 retornoCNAB400)
+        /// <returns><</OcorrenciaCobranca>"/></returns>
+        public List<OcorrenciaCobranca> ocorrenciasCnab400(ArquivoRetornoCNAB400 retornoCNAB400)
         {
             var listaOcorrencias = new List<OcorrenciaCobranca>();
             var ocorrencia = new OcorrenciaCobranca();
@@ -85,10 +94,8 @@ namespace MonitorBoletos.Business
                 ocorrencia.ValorOutrasDespesas = Convert.ToDouble(item.ValorOutrasDespesas);
 
                 listaOcorrencias.Add(ocorrencia);
-
-                Salvar(ocorrencia);
             }
-            return true;
+            return listaOcorrencias;
         }
         #endregion
     }

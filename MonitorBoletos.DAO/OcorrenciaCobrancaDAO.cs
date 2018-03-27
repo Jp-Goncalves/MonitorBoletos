@@ -43,7 +43,7 @@ namespace MonitorBoletos.DAO
         /// Pega um registro a partir do numero
         /// </summary>
         /// <param name="file"></param>
-        /// <returns></returns>
+        /// <returns>retorna um <see cref="OcorrenciaCobranca"/></returns>
         public OcorrenciaCobranca getByNumero(string file)
         {
             using (var db = new LiteDatabase(Connection))
