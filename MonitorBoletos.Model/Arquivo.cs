@@ -22,6 +22,7 @@ namespace MonitorBoletos.Model
 
         //public ContaCorrente ContaCorrente { get; set; }
 
+        //[BsonRef("OcorrenciaCobranca")]
         public IList<OcorrenciaCobranca> OcorrenciasCobranca { get; set; }
 
         public DateTime DataUpload { get; set; }

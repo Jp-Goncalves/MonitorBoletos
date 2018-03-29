@@ -63,5 +63,8 @@ namespace MonitorBoletos.Model
         public double ValorIOF { get; set; }
 
         public double ValorOutrasDespesas { get; set; }
+
+        [BsonRef("arquivo")]
+        public Arquivo Arquivo { get; set; }
     }
 }

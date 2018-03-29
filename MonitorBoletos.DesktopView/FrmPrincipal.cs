@@ -132,6 +132,7 @@ namespace MonitorBoletos.DesktopView
             {
                 //Cria um DataTable referente ao objeto Arquivo e as colunas que serão mostradas na Grid
                 var dtArquivo = new DataTable();
+                dtArquivo.Columns.Add("Id", typeof(LiteDB.ObjectId));
                 dtArquivo.Columns.Add("Nome", typeof(string));
                 dtArquivo.Columns.Add("Diretorio", typeof(string));
                 dtArquivo.Columns.Add("OcorrenciasCobranca", typeof(List<OcorrenciaCobranca>));
@@ -141,21 +142,22 @@ namespace MonitorBoletos.DesktopView
 
                 //Cria um DataTable referente ao objeto Arquivo e as colunas que serão mostradas na Grid
                 var dtOcorrencias = new DataTable();
-                dtOcorrencias.Columns.Add("NossoNumero", typeof(List<string>));
+                dtOcorrencias.Columns.Add("Id", typeof(LiteDB.ObjectId));
+                dtOcorrencias.Columns.Add("NossoNumero", typeof(string));
 
                 //Pega todos os objetos do tipo Arquivo que se encontram no banco de dados
                 var file = new List<Arquivo>();
                 file = (List<Arquivo>)bc.ObterTodos();
                 var ocorrencias = new List<OcorrenciaCobranca>();
                 var ocorrenciaBusiness = new OcorrenciaCobrancaBusiness();
-
-                //ocorrencias = (List<OcorrenciaCobranca>)ocorrenciaBusiness.ObterTodos();
+                ocorrencias = (List<OcorrenciaCobranca>)ocorrenciaBusiness.ObterTodos();
 
                 //Percorre a List de objetos do tipo Arquivo
                 foreach (var item in file)
                 {
                     //Adiciona cd linha na sua respectiva coluna
                     DataRow row = dtArquivo.NewRow();
+                    row["Id"] = item.Id;
                     row["Nome"] = item.Nome;
                     row["Diretorio"] = item.Diretorio;
                     row["OcorrenciasCobranca"] = item.OcorrenciasCobranca;
@@ -164,9 +166,16 @@ namespace MonitorBoletos.DesktopView
                     row["Usuario"] = item.Usuario;
                     dtArquivo.Rows.Add(row);
                 }
+
+                foreach (var item in ocorrencias)
+                {
+                    DataRow row = dtOcorrencias.NewRow();
+                    row["Id"] = item.Id;
+                    row["NossoNumero"] = item.NossoNumero;
+                }
                 DataSet dataSet = new DataSet();
                 dataSet.Tables.Add(dtArquivo);
-                //dataSet.Tables.Add(dtOcorrencias);
+                dataSet.Tables.Add(dtOcorrencias);
 
                 //DataRelation dataRelation = new DataRelation("Nossos Numeros", dataSet.Tables[0].Columns[2], dataSet.Tables[1].Columns[0], true);
                 //dataSet.Relations.Add(dataRelation);

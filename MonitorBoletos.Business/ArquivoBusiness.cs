@@ -244,12 +244,12 @@ namespace MonitorBoletos.Business
         {
             var a = new Arquivo();
             FileStream fs = stream as FileStream;
-            var directoryName = Path.GetDirectoryName(fs.Name);
             var ocorrenciaBuss = new OcorrenciaCobrancaBusiness();
 
+            a.Id = ObjectId.NewObjectId();
             a.Nome = fs.Name.Split('\\').Last();
-            a.Diretorio = directoryName;
-            a.OcorrenciasCobranca = ocorrenciaBuss.ocorrenciasCnab400(cnab);
+            a.Diretorio = Path.GetDirectoryName(fs.Name);
+            a.OcorrenciasCobranca = ocorrenciaBuss.ocorrenciasCnab400(cnab, a);
             a.DataProcessamento = DateTime.Now;
             a.Usuario = WindowsIdentity.GetCurrent().Name.Split('\\')[1].Trim();
 

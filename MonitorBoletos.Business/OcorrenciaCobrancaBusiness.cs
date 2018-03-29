@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using BoletoNet;
 using MonitorBoletos.DAO;
+using LiteDB;
 
 namespace MonitorBoletos.Business
 {
@@ -60,13 +61,15 @@ namespace MonitorBoletos.Business
         /// </summary>
         /// <param name="retornoCNAB400"></param>
         /// <returns><</OcorrenciaCobranca>"/></returns>
-        public List<OcorrenciaCobranca> ocorrenciasCnab400(ArquivoRetornoCNAB400 retornoCNAB400)
+        public List<OcorrenciaCobranca> ocorrenciasCnab400(ArquivoRetornoCNAB400 retornoCNAB400, Arquivo arquivo)
         {
             var listaOcorrencias = new List<OcorrenciaCobranca>();
-            var ocorrencia = new OcorrenciaCobranca();
 
             foreach (var item in retornoCNAB400.ListaDetalhe)
             {
+                var ocorrencia = new OcorrenciaCobranca();
+                ocorrencia.Id = ObjectId.NewObjectId();
+                ocorrencia.Arquivo = arquivo;
                 ocorrencia.TipoCobranca = item.CodigoOcorrencia;
                 ocorrencia.NossoNumero = item.NossoNumero;
                 ocorrencia.CodigoOcorrencia = item.CodigoOcorrencia.ToString();
@@ -93,6 +96,7 @@ namespace MonitorBoletos.Business
                 ocorrencia.ValorIOF = Convert.ToDouble(item.IOF);
                 ocorrencia.ValorOutrasDespesas = Convert.ToDouble(item.ValorOutrasDespesas);
 
+                Salvar(ocorrencia);
                 listaOcorrencias.Add(ocorrencia);
             }
             return listaOcorrencias;
