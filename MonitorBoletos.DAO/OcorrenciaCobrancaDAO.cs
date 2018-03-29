@@ -99,6 +99,22 @@ namespace MonitorBoletos.DAO
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="arquivo"></param>
+        /// <returns></returns>
+        public IList<OcorrenciaCobranca> obterTodos(Guid arquivo)
+        {
+            using (var db = new LiteDatabase(Connection))
+            {
+                var ocorrencia = db.GetCollection<OcorrenciaCobranca>(_tableName);
+
+                var result = ocorrencia.Find(Query.EQ("Arquivo.$id", arquivo));
+                return result.ToList();
+            }
+        }
+
         #endregion
     }
 }

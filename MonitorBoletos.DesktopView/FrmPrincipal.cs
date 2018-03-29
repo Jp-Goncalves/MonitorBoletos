@@ -291,8 +291,9 @@ namespace MonitorBoletos.DesktopView
 
         private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
-            var arquivo = new Arquivo();
-            new FrmListaOcorrencia().Show();
+            var linhaGrid = dataGridView1.Rows[e.RowIndex];
+            var id = (Guid)linhaGrid.Cells["Id"].Value;
+            new FrmListaOcorrencia(id).Show();
         }
 
     }

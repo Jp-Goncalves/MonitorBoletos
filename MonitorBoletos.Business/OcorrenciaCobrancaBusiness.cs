@@ -42,9 +42,9 @@ namespace MonitorBoletos.Business
             return dao.obterTodos();
         }
 
-        public IList<OcorrenciaCobranca> ObterTodos(Guid id_Arquivo)
+        public IList<OcorrenciaCobranca> ObterTodos(Guid arquivo)
         {
-            return dao.obterTodos();
+            return dao.obterTodos(arquivo);
         }
 
         /// <summary>
