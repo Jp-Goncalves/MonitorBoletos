@@ -12,7 +12,8 @@ namespace MonitorBoletos.Model
     /// </summary>
     public class Arquivo
     {
-        public ObjectId Id { get; set; }
+        [BsonId]
+        public Guid Id { get; set; }
 
         public string Nome { get; set; }
 

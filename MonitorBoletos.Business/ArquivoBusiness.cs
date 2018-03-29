@@ -246,7 +246,7 @@ namespace MonitorBoletos.Business
             FileStream fs = stream as FileStream;
             var ocorrenciaBuss = new OcorrenciaCobrancaBusiness();
 
-            a.Id = ObjectId.NewObjectId();
+            a.Id = Guid.NewGuid();
             a.Nome = fs.Name.Split('\\').Last();
             a.Diretorio = Path.GetDirectoryName(fs.Name);
             a.OcorrenciasCobranca = ocorrenciaBuss.ocorrenciasCnab400(cnab, a);

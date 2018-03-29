@@ -42,6 +42,11 @@ namespace MonitorBoletos.Business
             return dao.obterTodos();
         }
 
+        public IList<OcorrenciaCobranca> ObterTodos(Guid id_Arquivo)
+        {
+            return dao.obterTodos();
+        }
+
         /// <summary>
         /// Chama o DAO para Obter um registro pelo Id
         /// </summary>
@@ -68,7 +73,7 @@ namespace MonitorBoletos.Business
             foreach (var item in retornoCNAB400.ListaDetalhe)
             {
                 var ocorrencia = new OcorrenciaCobranca();
-                ocorrencia.Id = ObjectId.NewObjectId();
+                ocorrencia.Id = Guid.NewGuid();
                 ocorrencia.Arquivo = arquivo;
                 ocorrencia.TipoCobranca = item.CodigoOcorrencia;
                 ocorrencia.NossoNumero = item.NossoNumero;

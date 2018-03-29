@@ -130,66 +130,9 @@ namespace MonitorBoletos.DesktopView
         {
             using (var bc = new ArquivoBusiness())
             {
-                //Cria um DataTable referente ao objeto Arquivo e as colunas que serão mostradas na Grid
-                var dtArquivo = new DataTable();
-                dtArquivo.Columns.Add("Id", typeof(LiteDB.ObjectId));
-                dtArquivo.Columns.Add("Nome", typeof(string));
-                dtArquivo.Columns.Add("Diretorio", typeof(string));
-                dtArquivo.Columns.Add("OcorrenciasCobranca", typeof(List<OcorrenciaCobranca>));
-                dtArquivo.Columns.Add("DataUpload", typeof(DateTime));
-                dtArquivo.Columns.Add("DataProcessamento", typeof(DateTime));
-                dtArquivo.Columns.Add("Usuario", typeof(string));
-
-                //Cria um DataTable referente ao objeto Arquivo e as colunas que serão mostradas na Grid
-                var dtOcorrencias = new DataTable();
-                dtOcorrencias.Columns.Add("Id", typeof(LiteDB.ObjectId));
-                dtOcorrencias.Columns.Add("NossoNumero", typeof(string));
-
-                //Pega todos os objetos do tipo Arquivo que se encontram no banco de dados
-                var file = new List<Arquivo>();
-                file = (List<Arquivo>)bc.ObterTodos();
-                var ocorrencias = new List<OcorrenciaCobranca>();
-                var ocorrenciaBusiness = new OcorrenciaCobrancaBusiness();
-                ocorrencias = (List<OcorrenciaCobranca>)ocorrenciaBusiness.ObterTodos();
-
-                //Percorre a List de objetos do tipo Arquivo
-                foreach (var item in file)
-                {
-                    //Adiciona cd linha na sua respectiva coluna
-                    DataRow row = dtArquivo.NewRow();
-                    row["Id"] = item.Id;
-                    row["Nome"] = item.Nome;
-                    row["Diretorio"] = item.Diretorio;
-                    row["OcorrenciasCobranca"] = item.OcorrenciasCobranca;
-                    row["DataUpload"] = item.DataUpload;
-                    row["DataProcessamento"] = item.DataProcessamento;
-                    row["Usuario"] = item.Usuario;
-                    dtArquivo.Rows.Add(row);
-                }
-
-                foreach (var item in ocorrencias)
-                {
-                    DataRow row = dtOcorrencias.NewRow();
-                    row["Id"] = item.Id;
-                    row["NossoNumero"] = item.NossoNumero;
-                }
-                DataSet dataSet = new DataSet();
-                dataSet.Tables.Add(dtArquivo);
-                dataSet.Tables.Add(dtOcorrencias);
-
-                //DataRelation dataRelation = new DataRelation("Nossos Numeros", dataSet.Tables[0].Columns[2], dataSet.Tables[1].Columns[0], true);
-                //dataSet.Relations.Add(dataRelation);
-
-                //Popula a Grid com o DataTable
-                dataGridView1.DataSource = dtArquivo;
+                dataGridView1.DataSource = bc.ObterTodos();
+                dataGridView1.Columns["OcorrenciasCobranca"].Visible = false;
             }
-
-
-            //using (var bc = new ArquivoBusiness())
-            //{
-            //    dataGridView1.DataSource = bc.ObterTodos();
-            //    var arquivo = bc.ObterTodos();
-            //}
         }
 
         /// <summary>
@@ -345,5 +288,12 @@ namespace MonitorBoletos.DesktopView
 
             resetarBotoes();
         }
+
+        private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+            var arquivo = new Arquivo();
+            new FrmListaOcorrencia().Show();
+        }
+
     }
 }

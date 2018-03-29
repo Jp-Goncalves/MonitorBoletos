@@ -12,7 +12,8 @@ namespace MonitorBoletos.Model
     /// </summary>
     public class OcorrenciaCobranca
     {
-        public ObjectId Id { get; set; }
+        [BsonId]
+        public Guid Id { get; set; }
 
         public int TipoCobranca { get; set; }
 
