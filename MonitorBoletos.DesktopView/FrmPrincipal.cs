@@ -303,14 +303,19 @@ namespace MonitorBoletos.DesktopView
             resetarBotoes();
         }
 
-        private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        private void dataGridView1_CellContentDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
             var linhaGrid = dataGridView1.Rows[e.RowIndex];
             var id = (Guid)linhaGrid.Cells["Id"].Value;
             new FrmListaOcorrencia(id).Show();
+        }
+
+        private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+            var linhaGrid = dataGridView1.Rows[e.RowIndex];
+            var id = (Guid)linhaGrid.Cells["Id"].Value;           
             guid = id;
             btProcessarArquivoCronn.Enabled = true;
         }
-
     }
 }
