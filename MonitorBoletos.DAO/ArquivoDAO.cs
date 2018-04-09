@@ -1,5 +1,6 @@
 ﻿using LiteDB;
 using MonitorBoletos.Model;
+using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Linq;
@@ -53,6 +54,18 @@ namespace MonitorBoletos.DAO
             }
         }
 
+        public Arquivo getByNumero(Guid file)
+        {
+            using (var db = new LiteDatabase(Connection))
+            {
+                var arquivo = db.GetCollection<Arquivo>(_tableName);
+
+                var result = arquivo.FindById(file);
+
+                return result;
+            }
+        }
+
         /// <summary>
         /// Atualiza um registro que ja existe
         /// </summary>
@@ -93,6 +106,22 @@ namespace MonitorBoletos.DAO
 
                 var result = arquivo.FindAll().ToList();
                 return result;
+            }
+        }
+
+        public Arquivo obterUltimoInserido()
+        {
+            var file = new Arquivo();
+            using (var db = new LiteDatabase(Connection))
+            {
+                var arquivo = db.GetCollection<Arquivo>(_tableName);
+
+                var result = arquivo.Find(Query.All(Query.Descending), limit: 1);
+                foreach (var item in result)
+                {
+                    file = item;
+                }
+                return file;
             }
         }
         #endregion

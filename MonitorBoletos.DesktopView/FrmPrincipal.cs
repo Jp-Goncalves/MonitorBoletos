@@ -27,8 +27,9 @@ namespace MonitorBoletos.DesktopView
         #region Campos
         ArquivoRetornoCNAB400 cnab400 = new BoletoNet.ArquivoRetornoCNAB400();
         ArquivoRetornoCNAB240 cnab240 = new ArquivoRetornoCNAB240();
-        List<string> outrasOcorrencias = new List<string>();
-        List<string> NossoNumeroNaoEncontado = new List<string>();
+        List<OcorrenciaCobranca> outrasOcorrencias = new List<OcorrenciaCobranca>();
+        List<OcorrenciaCobranca> NossoNumeroNaoEncontado = new List<OcorrenciaCobranca>();
+        Guid guid;
 
         #endregion
 
@@ -54,17 +55,25 @@ namespace MonitorBoletos.DesktopView
                     //verifica se o arquivo existe
                     if (openFile.CheckFileExists == true)
                     {
-                        using (var bussBanco = new BancoBusiness())
+                        try
                         {
-                            var cbItem = cbBancos.SelectedValue;
-                            var banco = bussBanco.ObterPorID(cbItem);
-
-                            //lê o arquivo de retorno
-                            using (var bussArquivo = new ArquivoBusiness())
+                            using (var bussBanco = new BancoBusiness())
                             {
-                                var tipo = bussArquivo.verificaTipoCNAB(openFile.FileName);
-                                return bussArquivo.lerArquivoRetorno(banco, openFile.OpenFile(), tipo);
+                                var cbItem = cbBancos.SelectedValue;
+                                var banco = bussBanco.ObterPorID(cbItem);
+
+                                //lê o arquivo de retorno
+                                using (var bussArquivo = new ArquivoBusiness())
+                                {
+                                    var tipo = bussArquivo.verificaTipoCNAB(openFile.FileName);
+                                    return bussArquivo.lerArquivoRetorno(banco, openFile.OpenFile(), tipo);
+                                }
                             }
+                        }
+                        catch (Exception)
+                        {
+
+                            throw;
                         }
                     }
                 }
@@ -87,7 +96,7 @@ namespace MonitorBoletos.DesktopView
             {
                 atualizarGridView();
                 MessageBox.Show("Leitura realizada com sucesso!", "Arquivo Retorno", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                btProcessarArquivoCronn.Enabled = true;
+                //btProcessarArquivoCronn.Enabled = true;
             }
             else
             {
@@ -152,57 +161,62 @@ namespace MonitorBoletos.DesktopView
 
         private async void btProcessarArquivoCronn_Click(object sender, EventArgs e)
         {
-            processarArquivoCronn_PRD_SgvCobranca(cnab400);
+            var arquivo = new Arquivo();
+            using (ArquivoBusiness arquivoBuss = new ArquivoBusiness())
+            {
+                arquivo = arquivoBuss.ObterPorId(guid);
+            }
+            processarArquivoCronn_PRD_SgvCobranca(arquivo);
         }
 
         /// <summary>
         /// Processa o arquivo na base Cronn_PRD
         /// </summary>
-        private void processarArquivoCronn_PRD_SgvCobranca(ArquivoRetornoCNAB400 cnab400)
+        private void processarArquivoCronn_PRD_SgvCobranca(Arquivo arquivo)
         {
 
             //Cria uma lista com o NossoNumero e separado por tipos
-            List<string> listaNossoNumero = new List<string>();
-            List<string> tipo02 = new List<string>();
-            List<string> tipo06 = new List<string>();
-            List<string> tipo10 = new List<string>();
-            List<string> tipo17 = new List<string>();
+            List<OcorrenciaCobranca> listaNossoNumero = new List<OcorrenciaCobranca>();
+            List<OcorrenciaCobranca> tipo02 = new List<OcorrenciaCobranca>();
+            List<OcorrenciaCobranca> tipo06 = new List<OcorrenciaCobranca>();
+            List<OcorrenciaCobranca> tipo10 = new List<OcorrenciaCobranca>();
+            List<OcorrenciaCobranca> tipo17 = new List<OcorrenciaCobranca>();
 
             //abre o objeto cnab400 e varre a ListDetalhe, que contem as ocorrencias
-            foreach (var item in cnab400.ListaDetalhe)
+            foreach (var item in arquivo.OcorrenciasCobranca)
             {
                 // listaNossoNumero.Add(item.NossoNumero);
 
                 // 02 = Entrada Confirmada (verificar motivo na posição 319 a 328 )
-                if (item.CodigoOcorrencia == 2)
+                if (item.CodigoOcorrencia.Trim().Equals("2"))
                 {
-                    tipo02.Add(item.NossoNumero);
+                    tipo02.Add(item);
                 }
                 // 06 = Liquidação normal (sem motivo)
-                else if (item.CodigoOcorrencia == 6)
+                else if (item.CodigoOcorrencia.Trim().Equals("6"))
                 {
-                    tipo06.Add(item.NossoNumero);
-                    listaNossoNumero.Add(item.NossoNumero);
+                    tipo06.Add(item);
+                    listaNossoNumero.Add(item);
                 }
                 // 10 = Baixado conforme instruções da Agência(verificar motivo pos.319 a 328)
-                else if (item.CodigoOcorrencia == 10)
+                else if (item.CodigoOcorrencia.Trim().Equals("10"))
                 {
-                    tipo10.Add(item.NossoNumero);
+                    tipo10.Add(item);
                 }
                 // 17 = Liquidação após baixa ou Título não registrado (sem motivo)
-                else if (item.CodigoOcorrencia == 17)
+                else if (item.CodigoOcorrencia.Trim().Equals("17"))
                 {
-                    tipo17.Add(item.NossoNumero);
-                    listaNossoNumero.Add(item.NossoNumero);
+                    tipo17.Add(item);
+                    listaNossoNumero.Add(item);
                 }
                 //caso o tipo de ocorrencia não é nenhuma das anteriores
                 else
                 {
-                    outrasOcorrencias.Add(item.NossoNumero);
+                    outrasOcorrencias.Add(item);
                 }
             }
             //adiciona na ListBox os valores de acordo com o pedido do financeiro
-            listBoxMsg.Items.Add(cnab400.HeaderRetorno.NomeEmpresa);
+            listBoxMsg.Items.Add(arquivo.Nome);
             listBoxMsg.Items.Add(string.Format("Quantidade total de boletos: {0}", listaNossoNumero.Count));
             listBoxMsg.Items.Add(string.Format("Quantidade total do tipo 06 - Liquidação Normal: {0}", tipo06.Count));
             listBoxMsg.Items.Add(string.Format("Quantidade total do tipo 17 - Liquidação Após Baixa ou Liquidação Título Não Registrado: {0}", tipo17.Count));
@@ -218,14 +232,14 @@ namespace MonitorBoletos.DesktopView
             var cronnbs = new CronnSgvCobrancaBusiness();
 
             //lista PosPago = 0;
-            var PosPago = new List<string>();
+            var PosPago = new List<OcorrenciaCobranca>();
             //lista PrePago = 0;
-            var PrePago = new List<string>();
+            var PrePago = new List<OcorrenciaCobranca>();
 
             //varre a lista com os todos os nossos numeros contido no arquivo e retorna uma lista de objetos do tipo CronnSgvCobranca
             foreach (var item in listaNossoNumero)
             {
-                sgvCobranca = cronnbs.ObterCronnSgvCobranca(item);
+                sgvCobranca = cronnbs.ObterCronnSgvCobranca(item.NossoNumero);
 
                 //verifica se o nossoNumero que está no arquito de retorno se econtrar na base de dados Cronn_PRD
                 if (sgvCobranca == null)
@@ -242,12 +256,12 @@ namespace MonitorBoletos.DesktopView
                     if (sgvCobranca.TipoCobranca == 0)
                     {
                         PosPago.Add(item);
-                        Console.WriteLine("Quantidade de PosPago processado: {0}", PosPago.Count);
+                        Console.WriteLine("Quantidade de PosPago processado: {0}/{1}", PosPago.Count, listaNossoNumero.Count);
                     }
                     else
                     {
                         PrePago.Add(item);
-                        Console.WriteLine("Quantidade de PrePago processado: {0}", PrePago.Count);
+                        Console.WriteLine("Quantidade de PrePago processado: {0}/{1}", PrePago.Count, listaNossoNumero.Count);
                     }
                 }
             }
@@ -294,6 +308,8 @@ namespace MonitorBoletos.DesktopView
             var linhaGrid = dataGridView1.Rows[e.RowIndex];
             var id = (Guid)linhaGrid.Cells["Id"].Value;
             new FrmListaOcorrencia(id).Show();
+            guid = id;
+            btProcessarArquivoCronn.Enabled = true;
         }
 
     }

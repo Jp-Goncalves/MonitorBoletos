@@ -55,11 +55,31 @@ namespace MonitorBoletos.Business
         {
             return dao.obterTodos();
         }
+
+        /// <summary>
+        /// Chama o DAO para Obter um Objeto do tipo Arquivo no LiteDB a partir de um id
+        /// </summary>
+        /// <param name="file"></param>
+        /// <returns></returns>
+        public Arquivo ObterPorId(string file)
+        {
+            return dao.getByNumero(file);
+        }
+
+        public Arquivo ObterPorId(Guid file)
+        {
+            return dao.getByNumero(file);
+        }
+
+        public Arquivo ObterUltimoInserido()
+        {
+            return dao.obterUltimoInserido();
+        }
         #endregion
 
         public bool validarArquivo(string filename)
         {
-      
+
             var result = filename;
             var extensao = Path.GetExtension(result).ToUpper();
             var ext = ".RET";
