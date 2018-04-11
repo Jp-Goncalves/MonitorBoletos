@@ -7,6 +7,7 @@ using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Dapper;
 
 namespace Semafaro.Titulos.DAO
 {
@@ -20,6 +21,11 @@ namespace Semafaro.Titulos.DAO
         //    }
         //}
 
+        /// <summary>
+        /// Consulta o Cronn
+        /// </summary>
+        /// <param name="nossoNumero"></param>
+        /// <returns><see cref="CronnSgvCobranca"/></returns>
         public CronnSgvCobranca ObterCronnSgvCobranca(string nossoNumero)
         {
             var query = @"select * from [Cronn_PRD].[Sgv].[Cobranca] where BoletoNossoNro = @NossoNumero";
@@ -36,6 +42,22 @@ namespace Semafaro.Titulos.DAO
                 {
                     throw ex;
                 }
+            }
+        }
+
+        public List<CronnSgvCobranca> ObterTodasCobrancas(IEnumerable<string> ListNossoNumero)
+        {
+            var cronnSgvCobrancas = new List<CronnSgvCobranca>();
+
+            using (var conn = new SqlConnection(StringDeConexao.stringConexaoCronn_PRD))
+            {
+                var result = conn.Query<CronnSgvCobranca>("select * from [Cronn_PRD].[Sgv].[Cobranca] where BoletoNossoNro in @NossoNumero", new { NossoNumero = ListNossoNumero});
+
+                foreach (var item in result)
+                {
+                    cronnSgvCobrancas.Add(item);
+                }
+                return cronnSgvCobrancas;
             }
         }
     }

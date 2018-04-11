@@ -22,6 +22,8 @@ namespace MonitorBoletos.DesktopView
         {
             InitializeComponent();
         }
+
+        private const string V = "2";
         #endregion
 
         #region Campos
@@ -174,55 +176,25 @@ namespace MonitorBoletos.DesktopView
         /// </summary>
         private void processarArquivoCronn_PRD_SgvCobranca(Arquivo arquivo)
         {
+            //Separa as ocorrencias e mostra a quantidade de cada
+            var tipos_ocorrencia = from b in arquivo.OcorrenciasCobranca
+                                   group b by b.CodigoOcorrencia into grupo
+                                   select new { id = grupo.Key, qtde = grupo.Count() };
 
-            //Cria uma lista com o NossoNumero e separado por tipos
-            List<OcorrenciaCobranca> listaNossoNumero = new List<OcorrenciaCobranca>();
-            List<OcorrenciaCobranca> tipo02 = new List<OcorrenciaCobranca>();
-            List<OcorrenciaCobranca> tipo06 = new List<OcorrenciaCobranca>();
-            List<OcorrenciaCobranca> tipo10 = new List<OcorrenciaCobranca>();
-            List<OcorrenciaCobranca> tipo17 = new List<OcorrenciaCobranca>();
+            //Cria uma lista de ocorrencias do tipo 6 e 17 "Pagamento"
+            var pagos = arquivo.OcorrenciasCobranca.Where(p => p.CodigoOcorrencia.Trim().Equals("6") || p.CodigoOcorrencia.Trim().Equals("17"));
 
-            //abre o objeto cnab400 e varre a ListDetalhe, que contem as ocorrencias
-            foreach (var item in arquivo.OcorrenciasCobranca)
+            listBoxMsg.Items.Add(string.Format(arquivo.Nome));
+            listBoxMsg.Items.Add(string.Format($"A quantidade TOTAL de registros é {arquivo.OcorrenciasCobranca.Count()}"));
+            listBoxMsg.Items.Add(string.Format($"A quantidade TOTAL de boletos pagos: {pagos.Count()}"));
+
+            //Joga na List o resultado da pesquisa
+            foreach (var item in tipos_ocorrencia)
             {
-                // listaNossoNumero.Add(item.NossoNumero);
-
-                // 02 = Entrada Confirmada (verificar motivo na posição 319 a 328 )
-                if (item.CodigoOcorrencia.Trim().Equals("2"))
-                {
-                    tipo02.Add(item);
-                }
-                // 06 = Liquidação normal (sem motivo)
-                else if (item.CodigoOcorrencia.Trim().Equals("6"))
-                {
-                    tipo06.Add(item);
-                    listaNossoNumero.Add(item);
-                }
-                // 10 = Baixado conforme instruções da Agência(verificar motivo pos.319 a 328)
-                else if (item.CodigoOcorrencia.Trim().Equals("10"))
-                {
-                    tipo10.Add(item);
-                }
-                // 17 = Liquidação após baixa ou Título não registrado (sem motivo)
-                else if (item.CodigoOcorrencia.Trim().Equals("17"))
-                {
-                    tipo17.Add(item);
-                    listaNossoNumero.Add(item);
-                }
-                //caso o tipo de ocorrencia não é nenhuma das anteriores
-                else
-                {
-                    outrasOcorrencias.Add(item);
-                }
+                listBoxMsg.Items.Add(string.Format($"A quantidade de registros do tipo {item.id} é de: {item.qtde}"));
+                Console.WriteLine($"A quantidade de registros do tipo {item.id} é {item.qtde}");
             }
-            //adiciona na ListBox os valores de acordo com o pedido do financeiro
-            listBoxMsg.Items.Add(arquivo.Nome);
-            listBoxMsg.Items.Add(string.Format("Quantidade total de boletos: {0}", listaNossoNumero.Count));
-            listBoxMsg.Items.Add(string.Format("Quantidade total do tipo 06 - Liquidação Normal: {0}", tipo06.Count));
-            listBoxMsg.Items.Add(string.Format("Quantidade total do tipo 17 - Liquidação Após Baixa ou Liquidação Título Não Registrado: {0}", tipo17.Count));
-            listBoxMsg.Items.Add(string.Format("Quantidade de boletos do tipo 02 - Entrada Confirmada: {0}", tipo02.Count));
-            listBoxMsg.Items.Add(string.Format("Quantidade de boletos do tipo 10 - Baixado Instrução Agencia: {0}", tipo10.Count));
-
+            Console.WriteLine($"A quantidade TOTAL de registros é {arquivo.OcorrenciasCobranca.Count()}");
 
             //cria uma instancia um objeto do tipo CronnSgvCobranca
             var sgvCobranca = new CronnSgvCobranca();
@@ -231,44 +203,61 @@ namespace MonitorBoletos.DesktopView
             //cria uma instancia do CronnBusiness
             var cronnbs = new CronnSgvCobrancaBusiness();
 
-            //lista PosPago = 0;
-            var PosPago = new List<OcorrenciaCobranca>();
-            //lista PrePago = 0;
-            var PrePago = new List<OcorrenciaCobranca>();
-
-            //varre a lista com os todos os nossos numeros contido no arquivo e retorna uma lista de objetos do tipo CronnSgvCobranca
-            foreach (var item in listaNossoNumero)
+            var ListaNossoNumero = from n in pagos
+                                   select new { n.NossoNumero }.NossoNumero;
+            try
             {
-                sgvCobranca = cronnbs.ObterCronnSgvCobranca(item.NossoNumero);
+                ListCronnSgvCobranca = cronnbs.ObterTodasCobrancas(ListaNossoNumero);
 
-                //verifica se o nossoNumero que está no arquito de retorno se econtrar na base de dados Cronn_PRD
-                if (sgvCobranca == null)
-                {
-                    NossoNumeroNaoEncontado.Add(item);
-                    listBoxMsg.Items.Add(string.Format("NossoNumero não encotrado na base de dados: {0}", item));
-                }
-                else
-                {
-                    //adiciona o objeto CronnSgvCobranca na lista
-                    ListCronnSgvCobranca.Add(sgvCobranca);
+                var group = from b in ListCronnSgvCobranca
 
-                    //verificar se a ocorrencia é do tipo 0-PosPago ou 1-PrePago
-                    if (sgvCobranca.TipoCobranca == 0)
+                            group b by b.TipoCobranca into grp
+                            select new { key = grp.Key, cnt = grp.Count() };
+
+                foreach (var item in group)
+                {
+                    switch (item.key)
                     {
-                        PosPago.Add(item);
-                        Console.WriteLine("Quantidade de PosPago processado: {0}/{1}", PosPago.Count, listaNossoNumero.Count);
-                    }
-                    else
-                    {
-                        PrePago.Add(item);
-                        Console.WriteLine("Quantidade de PrePago processado: {0}/{1}", PrePago.Count, listaNossoNumero.Count);
+                        case 0:
+                            listBoxMsg.Items.Add(string.Format($"Quantidade de PosPago: {item.cnt}"));
+                            Console.WriteLine($"Quantidade de PosPago: {item.cnt}");
+                            break;
+
+                        case 1:
+                            listBoxMsg.Items.Add(string.Format($"Quantidade de PréPago: {item.cnt}"));
+                            Console.WriteLine($"Quantidade de PréPago: {item.cnt}");
+                            break;
                     }
                 }
+
+            }
+            catch (Exception ex)
+            {
+
+                throw new Exception("Erro ao consultar o banco de dados", ex.InnerException);
             }
 
-            listBoxMsg.Items.Add(string.Format("Quantidade de PosPago: {0}", PosPago.Count));
-            listBoxMsg.Items.Add(string.Format("Quantidade de PrePago: {0}", PrePago.Count));
+
+            ////varre a lista com os todos os nossos numeros contido no arquivo e retorna uma lista de objetos do tipo CronnSgvCobranca
+            //foreach (var item in pagos)
+            //{
+            //    sgvCobranca = cronnbs.ObterCronnSgvCobranca(item.NossoNumero);
+
+            //    //verifica se o nossoNumero que está no arquito de retorno se econtrar na base de dados Cronn_PRD
+            //    if (sgvCobranca == null)
+            //    {
+            //        NossoNumeroNaoEncontado.Add(item);
+            //        listBoxMsg.Items.Add(string.Format("NossoNumero não encotrado na base de dados: {0}", item));
+            //    }
+            //    else
+            //    {
+            //        //adiciona o objeto CronnSgvCobranca na lista
+            //        ListCronnSgvCobranca.Add(sgvCobranca);
+            //    }
+            //}
+
             listBoxMsg.Items.Add(string.Empty);
+
             resetarBotoes();
 
             btSendEmail.Enabled = true;
@@ -313,7 +302,7 @@ namespace MonitorBoletos.DesktopView
         private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
             var linhaGrid = dataGridView1.Rows[e.RowIndex];
-            var id = (Guid)linhaGrid.Cells["Id"].Value;           
+            var id = (Guid)linhaGrid.Cells["Id"].Value;
             guid = id;
             btProcessarArquivoCronn.Enabled = true;
         }
