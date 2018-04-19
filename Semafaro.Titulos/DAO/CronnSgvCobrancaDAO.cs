@@ -57,6 +57,7 @@ namespace Semafaro.Titulos.DAO
                 {
                     cronnSgvCobrancas.Add(item);
                 }
+
                 return cronnSgvCobrancas;
             }
         }

@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+
 
 namespace Semafaro.Titulos.DAO
 {
@@ -16,7 +18,8 @@ namespace Semafaro.Titulos.DAO
         {
             get
             {
-                return "Data Source=CHOI;Initial Catalog=Cronn_PRD;Integrated Security=True";
+                //return "Data Source=CHOI;Initial Catalog=Cronn_PRD;Integrated Security=True";
+                return ConfigurationManager.ConnectionStrings["SQLConn"].ConnectionString;
             }
         }
     }

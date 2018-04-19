@@ -19,6 +19,10 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MonitorBoletos.Util", "Moni
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Semafaro.Titulos", "Semafaro.Titulos\Semafaro.Titulos.csproj", "{B567E675-44F6-45B7-A971-632E90217B4A}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Web", "Web", "{E40D7AC9-CE5A-4ED6-A0BA-00CC127BFE16}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MonitorWS", "MonitorWS\MonitorWS.csproj", "{B4D382F6-1C1D-45B2-ACDA-6575CCCB2AED}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -49,6 +53,10 @@ Global
 		{B567E675-44F6-45B7-A971-632E90217B4A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B567E675-44F6-45B7-A971-632E90217B4A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B567E675-44F6-45B7-A971-632E90217B4A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B4D382F6-1C1D-45B2-ACDA-6575CCCB2AED}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B4D382F6-1C1D-45B2-ACDA-6575CCCB2AED}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B4D382F6-1C1D-45B2-ACDA-6575CCCB2AED}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B4D382F6-1C1D-45B2-ACDA-6575CCCB2AED}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -60,6 +68,7 @@ Global
 		{ED2405F1-8101-49CA-A488-69B61D3F7A89} = {2C2F184E-394E-4424-ABD7-F4B90E1BBC43}
 		{8ADBD64A-3936-4A29-83D2-DC2A458A7234} = {1910FAAB-8D39-4947-8C14-571DC1B2D80F}
 		{B567E675-44F6-45B7-A971-632E90217B4A} = {1910FAAB-8D39-4947-8C14-571DC1B2D80F}
+		{B4D382F6-1C1D-45B2-ACDA-6575CCCB2AED} = {E40D7AC9-CE5A-4ED6-A0BA-00CC127BFE16}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {B27302AC-C8D4-462E-A769-776E923B90C1}

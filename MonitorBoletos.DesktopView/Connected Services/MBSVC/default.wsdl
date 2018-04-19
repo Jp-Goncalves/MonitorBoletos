@@ -1,0 +1,379 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://localhost/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" targetNamespace="http://localhost/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://localhost/">
+      <s:element name="HelloWorld">
+        <s:complexType />
+      </s:element>
+      <s:element name="HelloWorldResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="HelloWorldResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="HelloWorld2">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="nome" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="HelloWorld2Response">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="HelloWorld2Result" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SomarValores">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="valor1" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="valor2" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SomarValoresResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="SomarValoresResult" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="FazerAlgo">
+        <s:complexType />
+      </s:element>
+      <s:element name="FazerAlgoResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="FazerAlgoResult" type="tns:MyObj" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="MyObj">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="Idade" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="Nome" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Chato" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="TituloPorNossoNumero">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="nossoNumero" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="TituloPorNossoNumeroResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="TituloPorNossoNumeroResult" type="tns:CronnSgvCobranca" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="CronnSgvCobranca">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="Id" type="s:long" />
+          <s:element minOccurs="1" maxOccurs="1" name="DataCobranca" nillable="true" type="s:dateTime" />
+          <s:element minOccurs="1" maxOccurs="1" name="ValorPagto" nillable="true" type="s:decimal" />
+          <s:element minOccurs="1" maxOccurs="1" name="ValorTotal" nillable="true" type="s:decimal" />
+          <s:element minOccurs="0" maxOccurs="1" name="BoletoLinhaDig" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="BoletoValor" nillable="true" type="s:decimal" />
+          <s:element minOccurs="0" maxOccurs="1" name="BoletoNossoNro" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Dac" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="BoletoCodBarras" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="CustoBoleto" nillable="true" type="s:decimal" />
+          <s:element minOccurs="1" maxOccurs="1" name="TipoCobranca" nillable="true" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="Situacao" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="DataVencimento" nillable="true" type="s:dateTime" />
+          <s:element minOccurs="1" maxOccurs="1" name="DataPagamento" nillable="true" type="s:dateTime" />
+          <s:element minOccurs="1" maxOccurs="1" name="Juros" nillable="true" type="s:decimal" />
+          <s:element minOccurs="1" maxOccurs="1" name="Multa" nillable="true" type="s:decimal" />
+          <s:element minOccurs="1" maxOccurs="1" name="OutrosAcrescimos" nillable="true" type="s:decimal" />
+          <s:element minOccurs="1" maxOccurs="1" name="ValorTitulo" nillable="true" type="s:decimal" />
+          <s:element minOccurs="0" maxOccurs="1" name="NumeroDocumento" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Parcela" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="DataImpressao" nillable="true" type="s:dateTime" />
+          <s:element minOccurs="0" maxOccurs="1" name="UsuarioImpressao" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="CobrancaRede" nillable="true" type="s:boolean" />
+          <s:element minOccurs="1" maxOccurs="1" name="LimiteUnificado" nillable="true" type="s:boolean" />
+          <s:element minOccurs="1" maxOccurs="1" name="EmailEnviado" nillable="true" type="s:boolean" />
+          <s:element minOccurs="0" maxOccurs="1" name="IniciativaRegeracao" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="DataProcessamento" nillable="true" type="s:dateTime" />
+          <s:element minOccurs="1" maxOccurs="1" name="IdCliente" nillable="true" type="s:long" />
+          <s:element minOccurs="1" maxOccurs="1" name="IdCobrancaOrigem" nillable="true" type="s:long" />
+          <s:element minOccurs="1" maxOccurs="1" name="IdNegociacaoCobranca" nillable="true" type="s:long" />
+          <s:element minOccurs="1" maxOccurs="1" name="IdConvenioBancario" nillable="true" type="s:long" />
+          <s:element minOccurs="1" maxOccurs="1" name="IdParametroCobranca" nillable="true" type="s:long" />
+          <s:element minOccurs="0" maxOccurs="1" name="IdTerminal" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="IdRede" nillable="true" type="s:long" />
+          <s:element minOccurs="1" maxOccurs="1" name="IdResponsavelLimite" nillable="true" type="s:long" />
+          <s:element minOccurs="1" maxOccurs="1" name="IdEmpresa" nillable="true" type="s:long" />
+          <s:element minOccurs="1" maxOccurs="1" name="DataInclusao" nillable="true" type="s:dateTime" />
+          <s:element minOccurs="1" maxOccurs="1" name="DataAlteracao" nillable="true" type="s:dateTime" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="string" nillable="true" type="s:string" />
+      <s:element name="int" type="s:int" />
+      <s:element name="MyObj" nillable="true" type="tns:MyObj" />
+      <s:element name="CronnSgvCobranca" nillable="true" type="tns:CronnSgvCobranca" />
+    </s:schema>
+  </wsdl:types>
+  <wsdl:message name="HelloWorldSoapIn">
+    <wsdl:part name="parameters" element="tns:HelloWorld" />
+  </wsdl:message>
+  <wsdl:message name="HelloWorldSoapOut">
+    <wsdl:part name="parameters" element="tns:HelloWorldResponse" />
+  </wsdl:message>
+  <wsdl:message name="HelloWorld2SoapIn">
+    <wsdl:part name="parameters" element="tns:HelloWorld2" />
+  </wsdl:message>
+  <wsdl:message name="HelloWorld2SoapOut">
+    <wsdl:part name="parameters" element="tns:HelloWorld2Response" />
+  </wsdl:message>
+  <wsdl:message name="SomarValoresSoapIn">
+    <wsdl:part name="parameters" element="tns:SomarValores" />
+  </wsdl:message>
+  <wsdl:message name="SomarValoresSoapOut">
+    <wsdl:part name="parameters" element="tns:SomarValoresResponse" />
+  </wsdl:message>
+  <wsdl:message name="FazerAlgoSoapIn">
+    <wsdl:part name="parameters" element="tns:FazerAlgo" />
+  </wsdl:message>
+  <wsdl:message name="FazerAlgoSoapOut">
+    <wsdl:part name="parameters" element="tns:FazerAlgoResponse" />
+  </wsdl:message>
+  <wsdl:message name="TituloPorNossoNumeroSoapIn">
+    <wsdl:part name="parameters" element="tns:TituloPorNossoNumero" />
+  </wsdl:message>
+  <wsdl:message name="TituloPorNossoNumeroSoapOut">
+    <wsdl:part name="parameters" element="tns:TituloPorNossoNumeroResponse" />
+  </wsdl:message>
+  <wsdl:message name="HelloWorldHttpGetIn" />
+  <wsdl:message name="HelloWorldHttpGetOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="HelloWorld2HttpGetIn">
+    <wsdl:part name="nome" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="HelloWorld2HttpGetOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="SomarValoresHttpGetIn">
+    <wsdl:part name="valor1" type="s:string" />
+    <wsdl:part name="valor2" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="SomarValoresHttpGetOut">
+    <wsdl:part name="Body" element="tns:int" />
+  </wsdl:message>
+  <wsdl:message name="FazerAlgoHttpGetIn" />
+  <wsdl:message name="FazerAlgoHttpGetOut">
+    <wsdl:part name="Body" element="tns:MyObj" />
+  </wsdl:message>
+  <wsdl:message name="TituloPorNossoNumeroHttpGetIn">
+    <wsdl:part name="nossoNumero" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="TituloPorNossoNumeroHttpGetOut">
+    <wsdl:part name="Body" element="tns:CronnSgvCobranca" />
+  </wsdl:message>
+  <wsdl:portType name="DefaultSoap">
+    <wsdl:operation name="HelloWorld">
+      <wsdl:input message="tns:HelloWorldSoapIn" />
+      <wsdl:output message="tns:HelloWorldSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="HelloWorld2">
+      <wsdl:input message="tns:HelloWorld2SoapIn" />
+      <wsdl:output message="tns:HelloWorld2SoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SomarValores">
+      <wsdl:input message="tns:SomarValoresSoapIn" />
+      <wsdl:output message="tns:SomarValoresSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="FazerAlgo">
+      <wsdl:input message="tns:FazerAlgoSoapIn" />
+      <wsdl:output message="tns:FazerAlgoSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="TituloPorNossoNumero">
+      <wsdl:input message="tns:TituloPorNossoNumeroSoapIn" />
+      <wsdl:output message="tns:TituloPorNossoNumeroSoapOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:portType name="DefaultHttpGet">
+    <wsdl:operation name="HelloWorld">
+      <wsdl:input message="tns:HelloWorldHttpGetIn" />
+      <wsdl:output message="tns:HelloWorldHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="HelloWorld2">
+      <wsdl:input message="tns:HelloWorld2HttpGetIn" />
+      <wsdl:output message="tns:HelloWorld2HttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SomarValores">
+      <wsdl:input message="tns:SomarValoresHttpGetIn" />
+      <wsdl:output message="tns:SomarValoresHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="FazerAlgo">
+      <wsdl:input message="tns:FazerAlgoHttpGetIn" />
+      <wsdl:output message="tns:FazerAlgoHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="TituloPorNossoNumero">
+      <wsdl:input message="tns:TituloPorNossoNumeroHttpGetIn" />
+      <wsdl:output message="tns:TituloPorNossoNumeroHttpGetOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="DefaultSoap" type="tns:DefaultSoap">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="HelloWorld">
+      <soap:operation soapAction="http://localhost/HelloWorld" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="HelloWorld2">
+      <soap:operation soapAction="http://localhost/HelloWorld2" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SomarValores">
+      <soap:operation soapAction="http://localhost/SomarValores" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="FazerAlgo">
+      <soap:operation soapAction="http://localhost/FazerAlgo" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="TituloPorNossoNumero">
+      <soap:operation soapAction="http://localhost/TituloPorNossoNumero" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="DefaultSoap12" type="tns:DefaultSoap">
+    <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="HelloWorld">
+      <soap12:operation soapAction="http://localhost/HelloWorld" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="HelloWorld2">
+      <soap12:operation soapAction="http://localhost/HelloWorld2" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SomarValores">
+      <soap12:operation soapAction="http://localhost/SomarValores" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="FazerAlgo">
+      <soap12:operation soapAction="http://localhost/FazerAlgo" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="TituloPorNossoNumero">
+      <soap12:operation soapAction="http://localhost/TituloPorNossoNumero" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="DefaultHttpGet" type="tns:DefaultHttpGet">
+    <http:binding verb="GET" />
+    <wsdl:operation name="HelloWorld">
+      <http:operation location="/HelloWorld" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="HelloWorld2">
+      <http:operation location="/HelloWorld2" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SomarValores">
+      <http:operation location="/SomarValores" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="FazerAlgo">
+      <http:operation location="/FazerAlgo" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="TituloPorNossoNumero">
+      <http:operation location="/TituloPorNossoNumero" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="Default">
+    <wsdl:port name="DefaultSoap" binding="tns:DefaultSoap">
+      <soap:address location="http://localhost:8080/Monitor/Boleto/default.asmx" />
+    </wsdl:port>
+    <wsdl:port name="DefaultSoap12" binding="tns:DefaultSoap12">
+      <soap12:address location="http://localhost:8080/Monitor/Boleto/default.asmx" />
+    </wsdl:port>
+    <wsdl:port name="DefaultHttpGet" binding="tns:DefaultHttpGet">
+      <http:address location="http://localhost:8080/Monitor/Boleto/default.asmx" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

@@ -210,7 +210,6 @@ namespace MonitorBoletos.DesktopView
                 ListCronnSgvCobranca = cronnbs.ObterTodasCobrancas(ListaNossoNumero);
 
                 var group = from b in ListCronnSgvCobranca
-
                             group b by b.TipoCobranca into grp
                             select new { key = grp.Key, cnt = grp.Count() };
 
@@ -233,7 +232,6 @@ namespace MonitorBoletos.DesktopView
             }
             catch (Exception ex)
             {
-
                 throw new Exception("Erro ao consultar o banco de dados", ex.InnerException);
             }
 
@@ -305,6 +303,17 @@ namespace MonitorBoletos.DesktopView
             var id = (Guid)linhaGrid.Cells["Id"].Value;
             guid = id;
             btProcessarArquivoCronn.Enabled = true;
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            var svc = new MBSVC.DefaultSoapClient();
+            var result = svc.FazerAlgo();
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }
