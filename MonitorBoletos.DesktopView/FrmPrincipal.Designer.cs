@@ -35,13 +35,14 @@
             this.txtMsg = new System.Windows.Forms.TextBox();
             this.linkLabel1 = new System.Windows.Forms.LinkLabel();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.button2 = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
             this.btSendEmail = new System.Windows.Forms.Button();
             this.btProcessarArquivoCronn = new System.Windows.Forms.Button();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.listBoxMsg = new System.Windows.Forms.ListBox();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
-            this.button2 = new System.Windows.Forms.Button();
+            this.btCalcularQuantidadeTotal = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -111,6 +112,7 @@
             // 
             // groupBox2
             // 
+            this.groupBox2.Controls.Add(this.btCalcularQuantidadeTotal);
             this.groupBox2.Controls.Add(this.button2);
             this.groupBox2.Controls.Add(this.button1);
             this.groupBox2.Controls.Add(this.btSendEmail);
@@ -122,9 +124,19 @@
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "CRONN";
             // 
+            // button2
+            // 
+            this.button2.Location = new System.Drawing.Point(178, 30);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(75, 43);
+            this.button2.TabIndex = 3;
+            this.button2.Text = "Ler Arquivos Cnab";
+            this.button2.UseVisualStyleBackColor = true;
+            this.button2.Click += new System.EventHandler(this.button2_Click);
+            // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(120, 30);
+            this.button1.Location = new System.Drawing.Point(97, 30);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(75, 43);
             this.button1.TabIndex = 2;
@@ -135,7 +147,7 @@
             // btSendEmail
             // 
             this.btSendEmail.Enabled = false;
-            this.btSendEmail.Location = new System.Drawing.Point(30, 30);
+            this.btSendEmail.Location = new System.Drawing.Point(16, 30);
             this.btSendEmail.Name = "btSendEmail";
             this.btSendEmail.Size = new System.Drawing.Size(75, 43);
             this.btSendEmail.TabIndex = 1;
@@ -169,7 +181,7 @@
             this.listBoxMsg.FormattingEnabled = true;
             this.listBoxMsg.Location = new System.Drawing.Point(13, 450);
             this.listBoxMsg.Name = "listBoxMsg";
-            this.listBoxMsg.Size = new System.Drawing.Size(486, 82);
+            this.listBoxMsg.Size = new System.Drawing.Size(486, 329);
             this.listBoxMsg.TabIndex = 6;
             // 
             // dataGridView1
@@ -182,21 +194,21 @@
             this.dataGridView1.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick);
             this.dataGridView1.CellContentDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentDoubleClick);
             // 
-            // button2
+            // btCalcularQuantidadeTotal
             // 
-            this.button2.Location = new System.Drawing.Point(247, 30);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(75, 43);
-            this.button2.TabIndex = 3;
-            this.button2.Text = "Ler Arquivos Cnab";
-            this.button2.UseVisualStyleBackColor = true;
-            this.button2.Click += new System.EventHandler(this.button2_Click);
+            this.btCalcularQuantidadeTotal.Location = new System.Drawing.Point(260, 30);
+            this.btCalcularQuantidadeTotal.Name = "btCalcularQuantidadeTotal";
+            this.btCalcularQuantidadeTotal.Size = new System.Drawing.Size(84, 43);
+            this.btCalcularQuantidadeTotal.TabIndex = 4;
+            this.btCalcularQuantidadeTotal.Text = "Calcular Total";
+            this.btCalcularQuantidadeTotal.UseVisualStyleBackColor = true;
+            this.btCalcularQuantidadeTotal.Click += new System.EventHandler(this.btCalcularQuantidadeTotal_Click);
             // 
             // FrmPrincipal
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(511, 546);
+            this.ClientSize = new System.Drawing.Size(511, 785);
             this.Controls.Add(this.dataGridView1);
             this.Controls.Add(this.listBoxMsg);
             this.Controls.Add(this.groupBox3);
@@ -231,6 +243,7 @@
         private System.Windows.Forms.DataGridView dataGridView1;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.Button btCalcularQuantidadeTotal;
     }
 }
 

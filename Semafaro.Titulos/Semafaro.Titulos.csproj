@@ -47,6 +47,7 @@
     <Compile Include="Business\CronnSgvCobrancaBusiness.cs" />
     <Compile Include="DAO\CronnSgvCobrancaDAO.cs" />
     <Compile Include="DAO\StringDeConexao.cs" />
+    <Compile Include="Model\ContadorPorEmpresa.cs" />
     <Compile Include="Model\CronnSgvCobranca.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
