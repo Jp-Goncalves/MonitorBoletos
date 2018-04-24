@@ -87,6 +87,64 @@ namespace MonitorBoletos.DesktopView
             }
         }
 
+        private bool LerArquivoRetorno(OpenFileDialog openFile)
+        {
+            try
+            {
+                using (var bussBanco = new BancoBusiness())
+                {
+                    var cbItem = cbBancos.SelectedValue;
+                    var banco = bussBanco.ObterPorID(cbItem);
+                    foreach (var item in openFile.FileNames)
+                    {
+                        var stream = new FileStream(item, FileMode.Open, FileAccess.Read);
+                        //lê o arquivo de retorno
+                        using (var bussArquivo = new ArquivoBusiness())
+                        {
+                            var tipo = bussArquivo.verificaTipoCNAB(item);
+                            bussArquivo.lerArquivoRetorno(banco, stream, tipo);
+                        }
+                    }
+                    return true;
+                }
+
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        private bool LerArquivosRetorno()
+        {
+            try
+            {
+                OpenFileDialog openFile = new OpenFileDialog
+                {
+                    Filter = "Arquivos de Retorno (*.ret;*.crt)|*.ret;*.crt|Todos Arquivos (*.*)|*.*",
+                    Title = "Selecione um arquivo!",
+                    //InitialDirectory = @"C:\Users\joao.goncalves\Desktop\XML",
+                    Multiselect = true
+                };
+
+                if (openFile.ShowDialog() == DialogResult.OK)
+                {
+                    if (openFile.CheckFileExists == true)
+                    {
+                        return LerArquivoRetorno(openFile);
+                    }
+                }
+
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+
+            return false;
+        }
+
         /// <summary>
         /// Envia o arquivo para ser processado
         /// </summary>
@@ -313,7 +371,101 @@ namespace MonitorBoletos.DesktopView
 
         private void button2_Click(object sender, EventArgs e)
         {
+            //LerArquivosRetorno();
+            if (LerArquivosRetorno())
+            {
+                atualizarGridView();
+                MessageBox.Show("Leitura realizada com sucesso!", "Arquivo Retorno", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                //btProcessarArquivoCronn.Enabled = true;
+            }
+            else
+            {
+                MessageBox.Show("Não foi possivel ler o arquivo", "Arquivo Retorno", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+        }
 
+        private void btCalcularQuantidadeTotal_Click(object sender, EventArgs e)
+        {
+            calcularQuantidadeTotalPorEmpresa();
+        }
+
+        private void calcularQuantidadeTotalPorEmpresa()
+        {
+            using (var todos = new ArquivoBusiness())
+            {
+                var arquivos = new List<Arquivo>();
+                arquivos = (List<Arquivo>)todos.ObterTodos();
+
+                var log = new List<ContadorPorEmpresa>();
+                var rdc = new List<ContadorPorEmpresa>();
+                var drj = new List<ContadorPorEmpresa>();
+
+                List<ContadorPorEmpresa> contarPorQuantidade(Arquivo arquivo)
+                {
+                    //Separa as ocorrencias e mostra a quantidade de cada
+                    var tipos_ocorrencia = from b in arquivo.OcorrenciasCobranca
+                                           group b by b.CodigoOcorrencia into grupo
+                                           select new { id = grupo.Key, qtde = grupo.Count() };
+
+                    var resultados = new List<ContadorPorEmpresa>();
+                    foreach (var item in tipos_ocorrencia)
+                    {
+                        var result = new ContadorPorEmpresa();
+                        result.TipoOcorrencia = item.id;
+                        result.Quantidade = item.qtde;
+                        resultados.Add(result);
+                    }
+                    return resultados;
+                }
+
+                foreach (var item in arquivos)
+                {
+                    if (item.Nome.Trim().ToUpper().Contains("LOG"))
+                    {
+                        var contar = contarPorQuantidade(item);
+                        foreach (var count in contar)
+                        {
+                            log.Add(count);
+                        }
+                    }
+                    else if (item.Nome.Trim().ToUpper().Contains("RDC"))
+                    {
+                        var contar = contarPorQuantidade(item);
+                        foreach (var count in contar)
+                        {
+                            rdc.Add(count);
+                        }
+                    }
+                    else if (item.Nome.Trim().ToUpper().Contains("DRJ"))
+                    {
+                        var contar = contarPorQuantidade(item);
+                        foreach (var count in contar)
+                        {
+                            drj.Add(count);
+                        }
+                    }
+                }
+
+                resultado(log, "LOG");
+                resultado(rdc, "RDC");
+                resultado(drj, "DRJ");
+
+                void resultado(List<ContadorPorEmpresa> empresa, string nomeEmpresa)
+                {
+                    var result = from b in empresa
+                                 group b by b.TipoOcorrencia into grupo
+                                 select new { id = grupo.Key, qtde = grupo.Sum(x => x.Quantidade) };
+
+                    listBoxMsg.Items.Add(string.Format($"Empresa {nomeEmpresa}"));
+
+                    foreach (var itens in result)
+                    {
+                        listBoxMsg.Items.Add(string.Format($"A quantidade de registros do tipo {itens.id} é de: {itens.qtde}"));
+                        Console.WriteLine($"A quantidade de registros do tipo {itens.id} é {itens.qtde}");
+                    }
+                    listBoxMsg.Items.Add(string.Empty);
+                }
+            }
         }
     }
 }
