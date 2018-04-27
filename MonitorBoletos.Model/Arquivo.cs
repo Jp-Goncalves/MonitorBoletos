@@ -17,6 +17,8 @@ namespace MonitorBoletos.Model
 
         public string Nome { get; set; }
 
+        public string NomeEmpresa { get; set; }
+
         public string Diretorio { get; set; }
 
         //public Carteira Carteira { get; set; }

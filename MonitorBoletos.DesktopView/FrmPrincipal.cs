@@ -293,24 +293,17 @@ namespace MonitorBoletos.DesktopView
                 throw new Exception("Erro ao consultar o banco de dados", ex.InnerException);
             }
 
+            
+            var listNumeroNaoEncontrado = cronnbs.NumerosNaoEncontrados(ListaNossoNumero);
 
-            ////varre a lista com os todos os nossos numeros contido no arquivo e retorna uma lista de objetos do tipo CronnSgvCobranca
-            //foreach (var item in pagos)
-            //{
-            //    sgvCobranca = cronnbs.ObterCronnSgvCobranca(item.NossoNumero);
-
-            //    //verifica se o nossoNumero que está no arquito de retorno se econtrar na base de dados Cronn_PRD
-            //    if (sgvCobranca == null)
-            //    {
-            //        NossoNumeroNaoEncontado.Add(item);
-            //        listBoxMsg.Items.Add(string.Format("NossoNumero não encotrado na base de dados: {0}", item));
-            //    }
-            //    else
-            //    {
-            //        //adiciona o objeto CronnSgvCobranca na lista
-            //        ListCronnSgvCobranca.Add(sgvCobranca);
-            //    }
-            //}
+            if (listNumeroNaoEncontrado != null)
+            {
+                foreach (var item in listNumeroNaoEncontrado)
+                {
+                    listBoxMsg.Items.Add(string.Format($"NossoNumero não encontrado na base de dados: {item}"));
+                }
+            }
+           
 
             listBoxMsg.Items.Add(string.Empty);
 
@@ -391,31 +384,62 @@ namespace MonitorBoletos.DesktopView
 
         private void calcularQuantidadeTotalPorEmpresa()
         {
+            listBoxMsg.Items.Clear();
             using (var todos = new ArquivoBusiness())
             {
-                var arquivos = new List<Arquivo>();
-                arquivos = (List<Arquivo>)todos.ObterTodos();
-
+                var arquivos = (List<Arquivo>)todos.ObterTodos();
                 var log = new List<ContadorPorEmpresa>();
                 var rdc = new List<ContadorPorEmpresa>();
                 var drj = new List<ContadorPorEmpresa>();
 
                 List<ContadorPorEmpresa> contarPorQuantidade(Arquivo arquivo)
                 {
+                    var ListaContadorEmpresa = new List<ContadorPorEmpresa>();
                     //Separa as ocorrencias e mostra a quantidade de cada
                     var tipos_ocorrencia = from b in arquivo.OcorrenciasCobranca
                                            group b by b.CodigoOcorrencia into grupo
                                            select new { id = grupo.Key, qtde = grupo.Count() };
 
-                    var resultados = new List<ContadorPorEmpresa>();
                     foreach (var item in tipos_ocorrencia)
                     {
-                        var result = new ContadorPorEmpresa();
-                        result.TipoOcorrencia = item.id;
-                        result.Quantidade = item.qtde;
-                        resultados.Add(result);
+                        var contadorEmpresa = new ContadorPorEmpresa();
+                        contadorEmpresa.TipoOcorrencia = item.id;
+                        contadorEmpresa.Quantidade = item.qtde;
+
+                        var valores = arquivo.OcorrenciasCobranca
+                            .Where(x => x.CodigoOcorrencia == item.id)
+                            .Select(g => new
+                            {
+                                Valor = g.ValorTitulo,
+                                Pago = g.ValorPago
+                            });
+                        contadorEmpresa.ValorTitulo = valores.Sum(x => x.Valor);
+                        contadorEmpresa.ValorPago = valores.Sum(x => x.Pago);
+                        ListaContadorEmpresa.Add(contadorEmpresa);
                     }
-                    return resultados;
+                    return ListaContadorEmpresa;
+
+                    //Separa as ocorrencias e mostra a quantidade e valorpago de cada
+                    //var contador = arquivo.OcorrenciasCobranca
+                    //   .GroupBy(y => y.CodigoOcorrencia)
+                    //   .Select(grop => new
+                    //   {
+                    //       CodigoOcorrencia = grop.Key,
+                    //       Quantidade = grop.Count(),
+                    //       ValorPago = grop.Sum(valor => valor.ValorPago)
+                    //   });
+
+
+                    //var resultados = new List<ContadorPorEmpresa>();
+                    //foreach (var item in contador)
+                    //{
+                    //    var result = new ContadorPorEmpresa();
+                    //    result.TipoOcorrencia = item.CodigoOcorrencia;
+                    //    result.Quantidade = item.Quantidade;
+                    //    result.ValorPago = item.ValorPago;
+                    //    resultados.Add(result);
+                    //}
+                    //return resultados;
                 }
 
                 foreach (var item in arquivos)
@@ -452,20 +476,56 @@ namespace MonitorBoletos.DesktopView
 
                 void resultado(List<ContadorPorEmpresa> empresa, string nomeEmpresa)
                 {
-                    var result = from b in empresa
-                                 group b by b.TipoOcorrencia into grupo
-                                 select new { id = grupo.Key, qtde = grupo.Sum(x => x.Quantidade) };
+
+                    var tipos_ocorrencia = from b in empresa
+                                           group b by b.TipoOcorrencia into grupo
+                                           select new { id = grupo.Key, qtde = grupo.Count() };
+
+                    var result = empresa
+                        .GroupBy(b => b.TipoOcorrencia)
+                        .Select(group => new
+                        {
+                            id = group.Key,
+                            qtda = group.Sum(x => x.Quantidade),
+                            valorTitulo = group.Sum(x => x.ValorTitulo),
+                            valorPago = group.Sum(x => x.ValorPago)
+                        });
+
+
+                    //var result = empresa
+                    //    .GroupBy(y => y.TipoOcorrencia)
+                    //   .Select(grop => new
+                    //   {
+                    //       CodigoOcorrencia = grop.Key,
+                    //       Quantidade = grop.Count(),
+                    //       ValorPago = grop.Sum(valor => valor.ValorPago)
+                    //   });
 
                     listBoxMsg.Items.Add(string.Format($"Empresa {nomeEmpresa}"));
 
                     foreach (var itens in result)
                     {
-                        listBoxMsg.Items.Add(string.Format($"A quantidade de registros do tipo {itens.id} é de: {itens.qtde}"));
-                        Console.WriteLine($"A quantidade de registros do tipo {itens.id} é {itens.qtde}");
+                        listBoxMsg.Items.Add(string.Format($"A quantidade de registros do tipo {itens.id} é de: {itens.qtda}, valor do Titulo é de: {itens.valorTitulo} e o Valor Pago é de: {itens.valorPago}"));
                     }
                     listBoxMsg.Items.Add(string.Empty);
                 }
             }
+        }
+
+        private void btDeletarTodos_Click(object sender, EventArgs e)
+        {
+            var linhaGrid = dataGridView1.Rows;
+            foreach (var item in linhaGrid)
+            {
+                DataGridViewRow Lista = (DataGridViewRow)item;
+                var id = (Guid)Lista.Cells["Id"].Value;
+
+                using (var bc = new ArquivoBusiness())
+                {
+                    bc.DeletarPorId(id);
+                }
+            }
+            atualizarGridView();
         }
     }
 }

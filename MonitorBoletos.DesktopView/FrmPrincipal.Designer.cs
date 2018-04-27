@@ -35,6 +35,8 @@
             this.txtMsg = new System.Windows.Forms.TextBox();
             this.linkLabel1 = new System.Windows.Forms.LinkLabel();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.btDeletarTodos = new System.Windows.Forms.Button();
+            this.btCalcularQuantidadeTotal = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
             this.btSendEmail = new System.Windows.Forms.Button();
@@ -42,7 +44,6 @@
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.listBoxMsg = new System.Windows.Forms.ListBox();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
-            this.btCalcularQuantidadeTotal = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -57,7 +58,7 @@
             this.groupBox1.Controls.Add(this.txtMsg);
             this.groupBox1.Location = new System.Drawing.Point(13, 58);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(486, 100);
+            this.groupBox1.Size = new System.Drawing.Size(578, 100);
             this.groupBox1.TabIndex = 2;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "CNAB";
@@ -112,6 +113,7 @@
             // 
             // groupBox2
             // 
+            this.groupBox2.Controls.Add(this.btDeletarTodos);
             this.groupBox2.Controls.Add(this.btCalcularQuantidadeTotal);
             this.groupBox2.Controls.Add(this.button2);
             this.groupBox2.Controls.Add(this.button1);
@@ -119,14 +121,34 @@
             this.groupBox2.Controls.Add(this.btProcessarArquivoCronn);
             this.groupBox2.Location = new System.Drawing.Point(13, 164);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(486, 97);
+            this.groupBox2.Size = new System.Drawing.Size(578, 97);
             this.groupBox2.TabIndex = 4;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "CRONN";
             // 
+            // btDeletarTodos
+            // 
+            this.btDeletarTodos.Location = new System.Drawing.Point(332, 30);
+            this.btDeletarTodos.Name = "btDeletarTodos";
+            this.btDeletarTodos.Size = new System.Drawing.Size(67, 43);
+            this.btDeletarTodos.TabIndex = 5;
+            this.btDeletarTodos.Text = "Deletar Todos";
+            this.btDeletarTodos.UseVisualStyleBackColor = true;
+            this.btDeletarTodos.Click += new System.EventHandler(this.btDeletarTodos_Click);
+            // 
+            // btCalcularQuantidadeTotal
+            // 
+            this.btCalcularQuantidadeTotal.Location = new System.Drawing.Point(249, 30);
+            this.btCalcularQuantidadeTotal.Name = "btCalcularQuantidadeTotal";
+            this.btCalcularQuantidadeTotal.Size = new System.Drawing.Size(77, 43);
+            this.btCalcularQuantidadeTotal.TabIndex = 4;
+            this.btCalcularQuantidadeTotal.Text = "Calcular Total";
+            this.btCalcularQuantidadeTotal.UseVisualStyleBackColor = true;
+            this.btCalcularQuantidadeTotal.Click += new System.EventHandler(this.btCalcularQuantidadeTotal_Click);
+            // 
             // button2
             // 
-            this.button2.Location = new System.Drawing.Point(178, 30);
+            this.button2.Location = new System.Drawing.Point(168, 30);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(75, 43);
             this.button2.TabIndex = 3;
@@ -136,7 +158,7 @@
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(97, 30);
+            this.button1.Location = new System.Drawing.Point(87, 30);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(75, 43);
             this.button1.TabIndex = 2;
@@ -147,7 +169,7 @@
             // btSendEmail
             // 
             this.btSendEmail.Enabled = false;
-            this.btSendEmail.Location = new System.Drawing.Point(16, 30);
+            this.btSendEmail.Location = new System.Drawing.Point(6, 30);
             this.btSendEmail.Name = "btSendEmail";
             this.btSendEmail.Size = new System.Drawing.Size(75, 43);
             this.btSendEmail.TabIndex = 1;
@@ -158,7 +180,7 @@
             // btProcessarArquivoCronn
             // 
             this.btProcessarArquivoCronn.Enabled = false;
-            this.btProcessarArquivoCronn.Location = new System.Drawing.Point(384, 30);
+            this.btProcessarArquivoCronn.Location = new System.Drawing.Point(405, 30);
             this.btProcessarArquivoCronn.Name = "btProcessarArquivoCronn";
             this.btProcessarArquivoCronn.Size = new System.Drawing.Size(75, 43);
             this.btProcessarArquivoCronn.TabIndex = 0;
@@ -171,7 +193,7 @@
             this.groupBox3.Controls.Add(this.linkLabel1);
             this.groupBox3.Location = new System.Drawing.Point(13, 12);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(486, 40);
+            this.groupBox3.Size = new System.Drawing.Size(578, 40);
             this.groupBox3.TabIndex = 5;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Cadastro";
@@ -181,7 +203,7 @@
             this.listBoxMsg.FormattingEnabled = true;
             this.listBoxMsg.Location = new System.Drawing.Point(13, 450);
             this.listBoxMsg.Name = "listBoxMsg";
-            this.listBoxMsg.Size = new System.Drawing.Size(486, 329);
+            this.listBoxMsg.Size = new System.Drawing.Size(578, 342);
             this.listBoxMsg.TabIndex = 6;
             // 
             // dataGridView1
@@ -189,26 +211,16 @@
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView1.Location = new System.Drawing.Point(13, 268);
             this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.Size = new System.Drawing.Size(486, 164);
+            this.dataGridView1.Size = new System.Drawing.Size(578, 164);
             this.dataGridView1.TabIndex = 7;
             this.dataGridView1.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick);
             this.dataGridView1.CellContentDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentDoubleClick);
-            // 
-            // btCalcularQuantidadeTotal
-            // 
-            this.btCalcularQuantidadeTotal.Location = new System.Drawing.Point(260, 30);
-            this.btCalcularQuantidadeTotal.Name = "btCalcularQuantidadeTotal";
-            this.btCalcularQuantidadeTotal.Size = new System.Drawing.Size(84, 43);
-            this.btCalcularQuantidadeTotal.TabIndex = 4;
-            this.btCalcularQuantidadeTotal.Text = "Calcular Total";
-            this.btCalcularQuantidadeTotal.UseVisualStyleBackColor = true;
-            this.btCalcularQuantidadeTotal.Click += new System.EventHandler(this.btCalcularQuantidadeTotal_Click);
             // 
             // FrmPrincipal
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(511, 785);
+            this.ClientSize = new System.Drawing.Size(603, 795);
             this.Controls.Add(this.dataGridView1);
             this.Controls.Add(this.listBoxMsg);
             this.Controls.Add(this.groupBox3);
@@ -244,6 +256,7 @@
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.Button btCalcularQuantidadeTotal;
+        private System.Windows.Forms.Button btDeletarTodos;
     }
 }
 

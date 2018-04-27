@@ -1,11 +1,11 @@
 ﻿using MonitorBoletos.Model;
+using MonitorBoletos.DAO;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using BoletoNet;
-using MonitorBoletos.DAO;
 using LiteDB;
 
 namespace MonitorBoletos.Business
@@ -76,30 +76,31 @@ namespace MonitorBoletos.Business
                 ocorrencia.Id = Guid.NewGuid();
                 ocorrencia.Arquivo = arquivo;
                 ocorrencia.TipoCobranca = item.CodigoOcorrencia;
-                ocorrencia.NossoNumero = item.NossoNumero;
+                ocorrencia.NossoNumero = item.NossoNumeroComDV.Substring(0,11);
                 ocorrencia.CodigoOcorrencia = item.CodigoOcorrencia.ToString();
                 ocorrencia.MotivosOcorrencia = item.MotivoCodigoOcorrencia;
                 ocorrencia.DataOcorrencia = item.DataOcorrencia.ToString();
                 ocorrencia.Pagamento = item.ValorPago > 0 ? true : false;
                 ocorrencia.DataCredito = item.DataCredito.ToString();
-                ocorrencia.ValorPago = Convert.ToDouble(item.ValorPago);
-                ocorrencia.ValorMultaPaga = Convert.ToDouble(item.ValorMulta);
-                ocorrencia.ValorJurosPago = Convert.ToDouble(item.Juros);
-                ocorrencia.ValorTaxaCobranca = Convert.ToDouble(item.TarifaCobranca);
-                ocorrencia.ValorCredito = Convert.ToDouble(item.OutrosCreditos);
+                ocorrencia.ValorPago = item.ValorPago;
+                ocorrencia.ValorMultaPaga = item.ValorMulta;
+                ocorrencia.ValorJurosPago = item.Juros;
+                ocorrencia.ValorTaxaCobranca = item.TarifaCobranca;
+                ocorrencia.ValorCredito = item.OutrosCreditos;
                 ocorrencia.NumeroDocumento = item.NumeroDocumento;
-                ocorrencia.ValorDesconto = Convert.ToDouble(item.Descontos);
+                ocorrencia.ValorDesconto = item.Descontos;
                 ocorrencia.Banco = item.CodigoBanco.ToString();
                 ocorrencia.Carteira = item.Carteira;
                 ocorrencia.Agencia = item.Agencia.ToString();
                 ocorrencia.ContaCorrente = item.ContaCorrente.ToString();
                 ocorrencia.CodigoCedente = item.AgenciaCobradora.ToString();
                 ocorrencia.NumeroControle = item.NumeroControle;
-                ocorrencia.ValorOutrosAcrescimos = Convert.ToDouble(item.OutrosDebitos);
+                ocorrencia.ValorOutrosAcrescimos = item.OutrosDebitos;
                 ocorrencia.DadosOcorrencia = item.DescricaoOcorrencia;
-                ocorrencia.ValorAbatimento = Convert.ToDouble(item.ValorAbatimento);
-                ocorrencia.ValorIOF = Convert.ToDouble(item.IOF);
-                ocorrencia.ValorOutrasDespesas = Convert.ToDouble(item.ValorOutrasDespesas);
+                ocorrencia.ValorAbatimento = item.ValorAbatimento;
+                ocorrencia.ValorIOF = item.IOF;
+                ocorrencia.ValorOutrasDespesas = item.ValorOutrasDespesas;
+                ocorrencia.ValorTitulo = item.ValorTitulo;
 
                 Salvar(ocorrencia);
                 listaOcorrencias.Add(ocorrencia);

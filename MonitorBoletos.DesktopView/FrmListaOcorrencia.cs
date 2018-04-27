@@ -48,6 +48,7 @@ namespace MonitorBoletos.DesktopView
 
             dataGridView1.Columns["NossoNumero"].Visible = true;
             dataGridView1.Columns["DataOcorrencia"].Visible = true;
+            dataGridView1.Columns["ValorTitulo"].Visible = true;
             dataGridView1.Columns["ValorPago"].Visible = true;
             dataGridView1.Columns["DadosOcorrencia"].Visible = true;
         }

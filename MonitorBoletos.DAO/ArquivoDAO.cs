@@ -94,6 +94,16 @@ namespace MonitorBoletos.DAO
             }
         }
 
+        public void deletarArquivo(Guid file)
+        {
+            using (var db = new LiteDatabase(Connection))
+            {
+                var arquivo = db.GetCollection<Arquivo>(_tableName);
+
+                arquivo.Delete(file);
+            }
+        }
+
         /// <summary>
         /// Retorna uma lista com todos os objetos
         /// </summary>

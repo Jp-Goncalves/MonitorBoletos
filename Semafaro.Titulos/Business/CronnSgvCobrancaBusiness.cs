@@ -32,5 +32,11 @@ namespace Semafaro.Titulos.Business
             var dao = new CronnSgvCobrancaDAO();
             return dao.ObterTodasCobrancas(ListaNossoNumero);
         }
+
+        public IEnumerable<string> NumerosNaoEncontrados(IEnumerable<string> ListaNossoNumero)
+        {
+            var dao = new CronnSgvCobrancaDAO();
+            return dao.NumeroNaoEncontrado(ListaNossoNumero);
+        }
     }
 }

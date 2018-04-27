@@ -13,5 +13,9 @@ namespace Semafaro.Titulos.Model
         public string TipoOcorrencia { get; set; }
 
         public int Quantidade { get; set; }
+
+        public decimal ValorTitulo { get; set; }
+
+        public decimal ValorPago { get; set; }
     }
 }

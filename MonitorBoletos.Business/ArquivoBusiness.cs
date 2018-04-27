@@ -75,7 +75,24 @@ namespace MonitorBoletos.Business
         {
             return dao.obterUltimoInserido();
         }
+
+        public bool DeletarPorId(Guid id)
+        {
+            var arquivo = ObterPorId(id);
+
+            if (arquivo == null)
+            {
+                return false;
+            }
+            else
+            {
+                dao.deletarArquivo(id);
+                return true;
+            }
+        }
+
         #endregion
+
 
         public bool validarArquivo(string filename)
         {
@@ -268,6 +285,7 @@ namespace MonitorBoletos.Business
 
             a.Id = Guid.NewGuid();
             a.Nome = fs.Name.Split('\\').Last();
+            a.NomeEmpresa = fs.Name.Substring(fs.Name.Length - 7, 3).ToUpper();
             a.Diretorio = Path.GetDirectoryName(fs.Name);
             a.OcorrenciasCobranca = ocorrenciaBuss.ocorrenciasCnab400(cnab, a);
             a.DataProcessamento = DateTime.Now;

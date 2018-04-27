@@ -29,19 +29,21 @@ namespace MonitorBoletos.Model
 
         public string DataCredito { get; set; }
 
-        public double ValorPago { get; set; }
+        public decimal ValorTitulo { get; set; }
 
-        public double ValorMultaPaga { get; set; }
+        public decimal ValorPago { get; set; }
 
-        public double ValorJurosPago { get; set; }
+        public decimal ValorMultaPaga { get; set; }
 
-        public double ValorTaxaCobranca { get; set; }
+        public decimal ValorJurosPago { get; set; }
 
-        public double ValorCredito { get; set; }
+        public decimal ValorTaxaCobranca { get; set; }
+
+        public decimal ValorCredito { get; set; }
 
         public string NumeroDocumento { get; set; }
 
-        public double ValorDesconto { get; set; }
+        public decimal ValorDesconto { get; set; }
 
         public string Banco { get; set; }
 
@@ -55,15 +57,16 @@ namespace MonitorBoletos.Model
 
         public string NumeroControle { get; set; }
 
-        public double ValorOutrosAcrescimos { get; set; }
+        public decimal ValorOutrosAcrescimos { get; set; }
 
         public string DadosOcorrencia { get; set; }
 
-        public double ValorAbatimento { get; set; }
+        public decimal ValorAbatimento { get; set; }
 
-        public double ValorIOF { get; set; }
+        public decimal ValorIOF { get; set; }
 
-        public double ValorOutrasDespesas { get; set; }
+        public decimal ValorOutrasDespesas { get; set; }
+
 
         [BsonRef("arquivo")]
         public Arquivo Arquivo { get; set; }
