@@ -149,5 +149,57 @@ namespace Semafaro.Titulos.DAO
             }
             return cronnSgvCobrancas;
         }
+
+        /// <summary>
+        /// Consulta o Cronn e retorna os titulos que estiverem na lista
+        /// </summary>
+        /// <param name="ListNossoNumero"></param>
+        /// <returns></returns>
+        public List<CronnSgvCobranca> ObterTodasCobrancas(List<string> ListNossoNumero)
+        {
+            var cronnSgvCobrancas = new List<CronnSgvCobranca>();
+            try
+            {
+                if (ListNossoNumero.Count() <= 2000)
+                {
+
+                    using (var conn = new SqlConnection(StringDeConexao.stringConexaoCronn_PRD))
+                    {
+                        var result = conn.Query<CronnSgvCobranca>("select * from [Cronn_PRD].[Sgv].[Cobranca] where BoletoNossoNro in @NossoNumero"
+                            , new { NossoNumero = ListNossoNumero });
+
+                        foreach (var item in result)
+                        {
+                            cronnSgvCobrancas.Add(item);
+                        }
+                    }
+                }
+                else
+                {
+                    var resultado = Partition(ListNossoNumero, 2000);
+
+                    using (var conn = new SqlConnection(StringDeConexao.stringConexaoCronn_PRD))
+                    {
+                        foreach (var item in resultado)
+                        {
+                            var result = conn.Query<CronnSgvCobranca>("select * from [Cronn_PRD].[Sgv].[Cobranca] where BoletoNossoNro in @NossoNumero"
+                            , new { NossoNumero = item });
+
+                            foreach (var ocorrencia in result)
+                            {
+                                cronnSgvCobrancas.Add(ocorrencia);
+                            }
+                        }
+                    }
+                }
+
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+            return cronnSgvCobrancas;
+        }
     }
 }

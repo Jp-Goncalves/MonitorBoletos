@@ -32,6 +32,7 @@ namespace MonitorBoletos.DesktopView
         List<OcorrenciaCobranca> outrasOcorrencias = new List<OcorrenciaCobranca>();
         List<OcorrenciaCobranca> NossoNumeroNaoEncontado = new List<OcorrenciaCobranca>();
         Guid guid;
+        string[] listaNumeros;
 
         #endregion
 
@@ -260,14 +261,25 @@ namespace MonitorBoletos.DesktopView
             var ListCronnSgvCobranca = new List<CronnSgvCobranca>();
             //cria uma instancia do CronnBusiness
             var cronnbs = new CronnSgvCobrancaBusiness();
+            //cria uma instancia do MBSVC
+            var ws = new MBSVC.DefaultSoapClient();
 
-            var ListaNossoNumero = from n in pagos
-                                   select new { n.NossoNumero }.NossoNumero;
+            //var ListaNossoNumero = from n in pagos
+            //                       select new { n.NossoNumero }.NossoNumero;
+            var ListaNossoNumero = new List<string>();
+            foreach (var item in pagos)
+            {
+                ListaNossoNumero.Add(item.NossoNumero);
+            }
+
+            listaNumeros = ListaNossoNumero.ToArray();
+
             try
             {
-                ListCronnSgvCobranca = cronnbs.ObterTodasCobrancas(ListaNossoNumero);
+                //ListCronnSgvCobranca = cronnbs.ObterTodasCobrancas(ListaNossoNumero);
+                var cronnSgvCobrancas = ws.ObterListaTitulos(listaNumeros);
 
-                var group = from b in ListCronnSgvCobranca
+                var group = from b in cronnSgvCobrancas
                             group b by b.TipoCobranca into grp
                             select new { key = grp.Key, cnt = grp.Count() };
 
@@ -360,6 +372,7 @@ namespace MonitorBoletos.DesktopView
         {
             var svc = new MBSVC.DefaultSoapClient();
             var result = svc.FazerAlgo();
+            //var lista = svc.ObterListaTitulos(listaNumeros);
         }
 
         private void button2_Click(object sender, EventArgs e)

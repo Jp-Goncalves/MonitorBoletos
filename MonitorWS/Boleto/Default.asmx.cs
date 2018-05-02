@@ -52,6 +52,13 @@ namespace MonitorWS.Boleto
             return boletoBuss.ObterCronnSgvCobranca(nossoNumero);
         }
 
+        [WebMethod]
+        public List<CronnSgvCobranca> ObterListaTitulos(List<string> ListNossoNumero)
+        {
+            var cronnbuss = new CronnSgvCobrancaBusiness();
+            return cronnbuss.ObterTodasCobrancas(ListNossoNumero);
+        }
+
     }
 
 

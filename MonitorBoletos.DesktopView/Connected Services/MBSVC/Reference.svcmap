@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="92647885-6459-4499-b516-69d6d04883d2" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
+<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="7a92ce66-fbe8-4701-884e-7f88e2735021" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
   <ClientOptions>
     <GenerateAsynchronousMethods>false</GenerateAsynchronousMethods>
     <GenerateTaskBasedAsynchronousMethod>true</GenerateTaskBasedAsynchronousMethod>
@@ -22,7 +22,7 @@
     <MetadataSource Address="http://localhost:8080/Monitor/Boleto/default.asmx?wsdl" Protocol="http" SourceId="1" />
   </MetadataSources>
   <Metadata>
-    <MetadataFile FileName="default.wsdl" MetadataType="Wsdl" ID="7c41ad82-2180-4849-ab8a-a223313221b7" SourceId="1" SourceUrl="http://localhost:8080/Monitor/Boleto/default.asmx?wsdl" />
+    <MetadataFile FileName="default.wsdl" MetadataType="Wsdl" ID="52dddea4-35bc-43af-b375-8199b1db4344" SourceId="1" SourceUrl="http://localhost:8080/Monitor/Boleto/default.asmx?wsdl" />
   </Metadata>
   <Extensions>
     <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />

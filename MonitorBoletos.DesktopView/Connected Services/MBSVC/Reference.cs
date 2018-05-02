@@ -49,6 +49,13 @@ namespace MonitorBoletos.DesktopView.MBSVC {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://localhost/TituloPorNossoNumero", ReplyAction="*")]
         System.Threading.Tasks.Task<MonitorBoletos.DesktopView.MBSVC.CronnSgvCobranca> TituloPorNossoNumeroAsync(string nossoNumero);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://localhost/ObterListaTitulos", ReplyAction="*")]
+        [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
+        MonitorBoletos.DesktopView.MBSVC.CronnSgvCobranca[] ObterListaTitulos(string[] ListNossoNumero);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://localhost/ObterListaTitulos", ReplyAction="*")]
+        System.Threading.Tasks.Task<MonitorBoletos.DesktopView.MBSVC.CronnSgvCobranca[]> ObterListaTitulosAsync(string[] ListNossoNumero);
     }
     
     /// <remarks/>
@@ -726,6 +733,14 @@ namespace MonitorBoletos.DesktopView.MBSVC {
         
         public System.Threading.Tasks.Task<MonitorBoletos.DesktopView.MBSVC.CronnSgvCobranca> TituloPorNossoNumeroAsync(string nossoNumero) {
             return base.Channel.TituloPorNossoNumeroAsync(nossoNumero);
+        }
+        
+        public MonitorBoletos.DesktopView.MBSVC.CronnSgvCobranca[] ObterListaTitulos(string[] ListNossoNumero) {
+            return base.Channel.ObterListaTitulos(ListNossoNumero);
+        }
+        
+        public System.Threading.Tasks.Task<MonitorBoletos.DesktopView.MBSVC.CronnSgvCobranca[]> ObterListaTitulosAsync(string[] ListNossoNumero) {
+            return base.Channel.ObterListaTitulosAsync(ListNossoNumero);
         }
     }
 }
