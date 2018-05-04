@@ -19,10 +19,10 @@
     <ServiceContractMappings />
   </ClientOptions>
   <MetadataSources>
-    <MetadataSource Address="http://localhost:8080/Monitor/Boleto/default.asmx?wsdl" Protocol="http" SourceId="1" />
+    <MetadataSource Address="http://notebook152:8080/Monitor/Boleto/default.asmx?wsdl" Protocol="http" SourceId="1" />
   </MetadataSources>
   <Metadata>
-    <MetadataFile FileName="default.wsdl" MetadataType="Wsdl" ID="52dddea4-35bc-43af-b375-8199b1db4344" SourceId="1" SourceUrl="http://localhost:8080/Monitor/Boleto/default.asmx?wsdl" />
+    <MetadataFile FileName="default1.wsdl" MetadataType="Wsdl" ID="933c148e-08f7-462a-adb4-617e0225566b" SourceId="1" SourceUrl="http://notebook152:8080/Monitor/Boleto/default.asmx?wsdl" />
   </Metadata>
   <Extensions>
     <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />

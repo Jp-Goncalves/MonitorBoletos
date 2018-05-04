@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<SavedWcfConfigurationInformation xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" Version="9.1" CheckSum="xrM2L0nyJb6JR/J2UNQZw7dIEBQ=">
+<SavedWcfConfigurationInformation xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" Version="9.1" CheckSum="BjfnzhTvPUTecBjWYneH/p059tY=">
   <bindingConfigurations>
     <bindingConfiguration bindingType="basicHttpBinding" name="DefaultSoap">
       <properties>
@@ -263,10 +263,10 @@
     </bindingConfiguration>
   </bindingConfigurations>
   <endpoints>
-    <endpoint name="DefaultSoap" contract="MBSVC.DefaultSoap" bindingType="basicHttpBinding" address="http://localhost:8080/Monitor/Boleto/default.asmx" bindingConfiguration="DefaultSoap">
+    <endpoint name="DefaultSoap" contract="MBSVC.DefaultSoap" bindingType="basicHttpBinding" address="http://notebook152:8080/Monitor/Boleto/default.asmx" bindingConfiguration="DefaultSoap">
       <properties>
         <property path="/address" isComplexType="false" isExplicitlyDefined="true" clrType="System.Uri, System, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-          <serializedValue>http://localhost:8080/Monitor/Boleto/default.asmx</serializedValue>
+          <serializedValue>http://notebook152:8080/Monitor/Boleto/default.asmx</serializedValue>
         </property>
         <property path="/behaviorConfiguration" isComplexType="false" isExplicitlyDefined="false" clrType="System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
           <serializedValue />
@@ -348,10 +348,10 @@
         </property>
       </properties>
     </endpoint>
-    <endpoint name="DefaultSoap12" contract="MBSVC.DefaultSoap" bindingType="customBinding" address="http://localhost:8080/Monitor/Boleto/default.asmx" bindingConfiguration="DefaultSoap12">
+    <endpoint name="DefaultSoap12" contract="MBSVC.DefaultSoap" bindingType="customBinding" address="http://notebook152:8080/Monitor/Boleto/default.asmx" bindingConfiguration="DefaultSoap12">
       <properties>
         <property path="/address" isComplexType="false" isExplicitlyDefined="true" clrType="System.Uri, System, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-          <serializedValue>http://localhost:8080/Monitor/Boleto/default.asmx</serializedValue>
+          <serializedValue>http://notebook152:8080/Monitor/Boleto/default.asmx</serializedValue>
         </property>
         <property path="/behaviorConfiguration" isComplexType="false" isExplicitlyDefined="false" clrType="System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
           <serializedValue />

@@ -419,13 +419,13 @@
   </wsdl:binding>
   <wsdl:service name="Default">
     <wsdl:port name="DefaultSoap" binding="tns:DefaultSoap">
-      <soap:address location="http://localhost:8080/Monitor/Boleto/default.asmx" />
+      <soap:address location="http://notebook152:8080/Monitor/Boleto/default.asmx" />
     </wsdl:port>
     <wsdl:port name="DefaultSoap12" binding="tns:DefaultSoap12">
-      <soap12:address location="http://localhost:8080/Monitor/Boleto/default.asmx" />
+      <soap12:address location="http://notebook152:8080/Monitor/Boleto/default.asmx" />
     </wsdl:port>
     <wsdl:port name="DefaultHttpGet" binding="tns:DefaultHttpGet">
-      <http:address location="http://localhost:8080/Monitor/Boleto/default.asmx" />
+      <http:address location="http://notebook152:8080/Monitor/Boleto/default.asmx" />
     </wsdl:port>
   </wsdl:service>
 </wsdl:definitions>

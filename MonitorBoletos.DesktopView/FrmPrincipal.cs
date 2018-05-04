@@ -370,8 +370,8 @@ namespace MonitorBoletos.DesktopView
 
         private void button1_Click(object sender, EventArgs e)
         {
-            var svc = new MBSVC.DefaultSoapClient();
-            var result = svc.FazerAlgo();
+            //var svc = new MBSVC.DefaultSoapClient();
+            //var result = svc.FazerAlgo();
             //var lista = svc.ObterListaTitulos(listaNumeros);
         }
 

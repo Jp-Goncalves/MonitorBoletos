@@ -47,6 +47,7 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <AllowUnsafeBlocks>false</AllowUnsafeBlocks>
   </PropertyGroup>
   <PropertyGroup>
     <ManifestCertificateThumbprint>D45F7716C05F710AF4D7DC7B76752977789E32E4</ManifestCertificateThumbprint>
@@ -129,14 +130,13 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
-    <None Include="Connected Services\MBSVC\default.wsdl" />
+    <None Include="Connected Services\MBSVC\default1.wsdl" />
     <None Include="Connected Services\MBSVC\MonitorBoletos.DesktopView.MBSVC.CronnSgvCobranca.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
     <None Include="Connected Services\MBSVC\MonitorBoletos.DesktopView.MBSVC.MyObj.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
-    <None Include="MonitorBoletos.DesktopView_TemporaryKey.pfx" />
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
